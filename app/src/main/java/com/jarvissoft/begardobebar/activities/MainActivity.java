@@ -18,6 +18,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -92,7 +94,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 	Toolbar toolbar;
 	
 	private int[] mTabIconsSelected = {
-			R.drawable.tab_home,
+			R.drawable.newspaper,
 			R.drawable.scan,
 			R.drawable.rank,
 			R.drawable.tab_profile};
@@ -190,6 +192,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 		handler.postDelayed(r, 1000);
 	}
 	
+
 	private void startLocationUpdates() {
 		
 		mSettingsClient

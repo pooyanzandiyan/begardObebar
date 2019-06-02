@@ -1,5 +1,6 @@
 package com.jarvissoft.begardobebar.activities;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -36,6 +37,7 @@ public class avatarActivity extends MyBaseActivity {
 							if(result!=null)
 								if(!result.equals("")){
 									finish();
+									setResult(Activity.RESULT_OK);
 									shortToastMessage("با موفقیت ثبت شد");
 								}
 						}

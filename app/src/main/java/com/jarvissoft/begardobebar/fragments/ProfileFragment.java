@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -39,6 +42,7 @@ public class ProfileFragment extends BaseFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 	}
 	
 	@Override
@@ -48,8 +52,42 @@ public class ProfileFragment extends BaseFragment {
 		ButterKnife.bind(this, view);
 		((MainActivity) getActivity()).updateToolbarTitle("پروفایل");
 		checkToken();
-		showLoading();
 		
+		getData();
+		profileImg.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				G.view=view;
+				startActivity(new Intent(getActivity(), avatarActivity.class));
+			}
+		});
+		return view; }
+	
+	String checkNullOrEmpty(String text) {
+		if(text==null)
+			return "نامعلوم";
+		
+		if (text.length() < 1)
+			return "نامعلوم";
+		
+		return text;
+	}
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.menu, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId()==R.id.refresh){
+			getData();
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	private void getData() {
+		showLoading();
 		AppService.getInstance().getScore(new ServiceCallback<List<ScoreModel>>() {
 			@Override
 			public void callback(List<ScoreModel> result) {
@@ -89,22 +127,5 @@ public class ProfileFragment extends BaseFragment {
 				}
 			}
 		});
-		profileImg.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				G.view=view;
-				startActivity(new Intent(getActivity(), avatarActivity.class));
-			}
-		});
-		return view; }
-	
-	String checkNullOrEmpty(String text) {
-		if(text==null)
-			return "نامعلوم";
-		
-		if (text.length() < 1)
-			return "نامعلوم";
-		
-		return text;
 	}
 }

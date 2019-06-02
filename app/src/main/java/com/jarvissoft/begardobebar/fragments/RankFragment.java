@@ -3,6 +3,9 @@ package com.jarvissoft.begardobebar.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -50,12 +53,35 @@ public class RankFragment extends BaseFragment {
 	}
 	
 	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.menu, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+		
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId()==R.id.refresh){
+			getData();
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.fragment_rank, container, false);
 		ButterKnife.bind(this, view);
 		checkToken();
+		
+		getData();
+		
+		
+		return view;
+	}
+	
+	private void getData() {
 		showLoading();
 		AppService.getInstance().getScore(new ServiceCallback<List<ScoreModel>>() {
 			@Override
@@ -65,15 +91,13 @@ public class RankFragment extends BaseFragment {
 					if (result.size() > 0) {
 						ScoreAdapter adapter = new ScoreAdapter(getActivity(), result);
 						lst.setAdapter(adapter);
-					}
+					}else
+						ToastMessage("تا کنون رتبه ای ثبت نشده است");
 				} else {
 					ToastMessage("خطا در برقراری ارتباط با سرور");
 				}
 			}
 		});
-		
-		
-		return view;
 	}
 	
 	@Override

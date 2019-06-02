@@ -3,6 +3,9 @@ package com.jarvissoft.begardobebar.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -57,6 +60,29 @@ public class HomeFragment extends BaseFragment {
 		View view = inflater.inflate(R.layout.fragment_home, container, false);
 		ButterKnife.bind(this, view);
 		checkToken();
+		
+		getData();
+		
+		
+		return view;
+	}
+	
+	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		
+		((MainActivity) getActivity()).updateToolbarTitle( "اخبار" );
+		
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId()==R.id.refresh){
+			getData();
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	private void getData() {
 		showLoading();
 		AppService.getInstance().getNews(new ServiceCallback<List<NewsModel>>() {
 			@Override
@@ -74,19 +100,14 @@ public class HomeFragment extends BaseFragment {
 				}
 			}
 		});
-		
-		
-		return view;
 	}
 	
 	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		
-		((MainActivity) getActivity()).updateToolbarTitle((fragCount == 0) ? "خانه" : "Sub Home " + fragCount);
-		
+		inflater.inflate(R.menu.menu, menu);
+		super.onCreateOptionsMenu(menu, inflater);
 	}
-	
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
