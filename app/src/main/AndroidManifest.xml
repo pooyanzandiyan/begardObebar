@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.f22labs.instalikefragmenttransaction">
+    package="com.jarvissoft.begardobebar">
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -14,22 +14,22 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".G"
+        android:name="com.jarvissoft.begardobebar.G"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.SplashScreenActivity">
+        <activity android:name="com.jarvissoft.begardobebar.activities.SplashScreenActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
-        <activity android:name=".activities.MainActivity"/>
-        <activity android:name=".activities.AuthenticationActivity"/>
-        <activity android:name=".activities.ConfirmAuthenticationActivity"/>
-        <activity android:name=".activities.ChangeProfile"/>
-        <activity android:name=".activities.Question"/>
-        <activity android:name=".activities.avatarActivity"/>
-        <activity android:name=".activities.noInternet"/>
+        <activity android:name="com.jarvissoft.begardobebar.activities.MainActivity"/>
+        <activity android:name="com.jarvissoft.begardobebar.activities.AuthenticationActivity"/>
+        <activity android:name="com.jarvissoft.begardobebar.activities.ConfirmAuthenticationActivity"/>
+        <activity android:name="com.jarvissoft.begardobebar.activities.ChangeProfile"/>
+        <activity android:name="com.jarvissoft.begardobebar.activities.Question"/>
+        <activity android:name="com.jarvissoft.begardobebar.activities.avatarActivity"/>
+        <activity android:name="com.jarvissoft.begardobebar.activities.noInternet"/>
     </application>
 
 </manifest>
