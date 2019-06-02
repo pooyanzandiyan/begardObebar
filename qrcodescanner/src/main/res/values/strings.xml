@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">بگرد و ببر</string>
+
+    <string name="title_activity_scan_qr_code">بار کد رو اسکن و امتیاز جمع کن</string>
+    <string name="qc_code_close">بستن</string>
+    <string name="qr_code_select_picture">Picture</string>
+    <string name="qr_code_open_flash_light">روشن کردن فلش</string>
+    <string name="qr_code_close_flash_light">خاموش کردن فلش</string>
+    <string name="qr_code_auto_scan_notification">بارکد رو تو این قسمت قرار بده</string>
+    <string name="qr_code_notification">اعلان</string>
+    <string name="qr_code_camera_not_open">خطا در بارگذاری دوربین</string>
+    <string name="qr_code_positive_button_know">باشه</string>
+    <string name="qr_code_positive_button_confirm">تایید</string>
+    <string name="qr_code_could_not_read_qr_code_from_picture">Could not read your image.Try another image~</string>
+    <string name="qr_code_could_not_read_qr_code_from_scanner">Sorry, could not open scan content</string>
+    <string name="qr_code_camera_not_found">نمیتونم دوربین رو تشخیص بدم</string>
+</resources>

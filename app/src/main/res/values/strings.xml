@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">بگرد و ببر</string>
+
+    <array name="tab_name">
+        <item>خانه</item>
+        <item>اسکن</item>
+        <item>رتبه</item>
+        <item>پروفایل</item>
+    </array>
+
+
+</resources>

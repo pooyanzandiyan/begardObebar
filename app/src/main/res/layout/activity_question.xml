@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	>
+	<TextView
+		android:id="@+id/txtQuestion"
+		android:layout_width="match_parent"
+		android:layout_height="300dp"
+		android:gravity="center"
+		android:textAlignment="center"
+		android:textColor="@color/black"
+		android:text="سوال اول"/>
+	<ProgressBar
+		android:id="@+id/prgTime"
+		android:layout_width="match_parent"
+		android:layout_height="50dp"
+		style="?android:attr/progressBarStyleHorizontal"
+		android:min="0"
+		android:max="30"/>
+<LinearLayout
+	android:layout_width="match_parent"
+	android:orientation="vertical"
+	android:layout_height="match_parent">
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_weight="0.5"
+
+		android:layout_height="match_parent">
+		<Button
+			android:layout_width="match_parent"
+			android:layout_weight="0.5"
+			android:id="@+id/answer1"
+			android:onClick="CheckAnswer"
+			android:layout_height="match_parent" />
+		<Button
+			android:layout_width="match_parent"
+			android:layout_weight="0.5"
+			android:id="@+id/answer2"
+			android:onClick="CheckAnswer"
+			android:layout_height="match_parent" />
+	</LinearLayout>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_weight="0.5"
+		android:layout_height="match_parent">
+		<Button
+			android:layout_width="match_parent"
+			android:layout_weight="0.5"
+			android:id="@+id/answer3"
+			android:onClick="CheckAnswer"
+			android:layout_height="match_parent" />
+		<Button
+			android:layout_width="match_parent"
+			android:layout_weight="0.5"
+			android:id="@+id/answer4"
+			android:onClick="CheckAnswer"
+			android:layout_height="match_parent" />
+	</LinearLayout>
+</LinearLayout>
+</LinearLayout>
