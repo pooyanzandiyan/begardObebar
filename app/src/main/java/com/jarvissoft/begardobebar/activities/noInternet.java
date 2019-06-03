@@ -9,17 +9,20 @@ import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.utils.NetworkUtils;
 
 public class noInternet extends MyBaseActivity {
+	Handler handler;
+	Runnable r;
+	
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.no_internet);
 		
-		final Handler handler = new Handler();
-		final Runnable r = new Runnable() {
+		handler = new Handler();
+		r = new Runnable() {
 			public void run() {
 				if (NetworkUtils.isConnected(noInternet.this)) {
-						G.isFirst = true;
-						finish();
+					G.isFirst = true;
+					finish();
 				}
 				handler.postDelayed(this, 1000);
 				
@@ -31,5 +34,12 @@ public class noInternet extends MyBaseActivity {
 	@Override
 	public void onBackPressed() {
 		return;
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (handler != null)
+			handler.removeCallbacksAndMessages(r);
 	}
 }
