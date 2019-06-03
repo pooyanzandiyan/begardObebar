@@ -30,40 +30,31 @@ public class ChangeProfile extends MyBaseActivity {
 		setContentView(R.layout.activity_change_profile);
 		final EditText editText = findViewById(R.id.input_name);
 		txtInputLayout = findViewById(R.id.mobileInputLayout);
-		findViewById(R.id.setProfileImage).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				
-				startActivityForResult(new Intent(ChangeProfile.this, avatarActivity.class), ChangeImageRequestCode);
-			}
-		});
-		findViewById(R.id.btn_save).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				hideKeyboard(ChangeProfile.this);
-				findViewById(R.id.btn_save).setEnabled(false);
-				if (editText.getText().toString().trim().length() > 1) {
-					txtInputLayout.setError(null);
-					if (NetworkUtils.isConnected(ChangeProfile.this)) {
-						findViewById(R.id.lytLoading).setVisibility(View.VISIBLE);
-						AppService.getInstance().ChangeProfile(SystemPrefs.getInstance().getMobileNumber(), editText.getText().toString(), new ServiceCallback<String>() {
-							@Override
-							public void callback(String result) {
-								if (result != null)
-									if (result.equals("ok")) {
-										startActivity(new Intent(ChangeProfile.this, MainActivity.class));
-										finish();
-									} else
-										txtInputLayout.setError("خطا در برقراری ارتباط با سرور");
-							}
-						});
-					} else {
-						txtInputLayout.setError("لطفا ابتدا به اینترنت متصل شوید");
-					}
-					
+		findViewById(R.id.setProfileImage).setOnClickListener(v -> startActivityForResult(new Intent(ChangeProfile.this, avatarActivity.class), ChangeImageRequestCode));
+		findViewById(R.id.btn_save).setOnClickListener(v -> {
+			hideKeyboard(ChangeProfile.this);
+			findViewById(R.id.btn_save).setEnabled(false);
+			if (editText.getText().toString().trim().length() > 1) {
+				txtInputLayout.setError(null);
+				if (NetworkUtils.isConnected(ChangeProfile.this)) {
+					findViewById(R.id.lytLoading).setVisibility(View.VISIBLE);
+					AppService.getInstance().ChangeProfile(SystemPrefs.getInstance().getMobileNumber(), editText.getText().toString(), new ServiceCallback<String>() {
+						@Override
+						public void callback(String result) {
+							if (result != null)
+								if (result.equals("ok")) {
+									startActivity(new Intent(ChangeProfile.this, MainActivity.class));
+									finish();
+								} else
+									txtInputLayout.setError("خطا در برقراری ارتباط با سرور");
+						}
+					});
 				} else {
-					txtInputLayout.setError("لطفا نام و نام خانوادگی خود را وارد کنید");
+					txtInputLayout.setError("لطفا ابتدا به اینترنت متصل شوید");
 				}
+				
+			} else {
+				txtInputLayout.setError("لطفا نام و نام خانوادگی خود را وارد کنید");
 			}
 		});
 	}

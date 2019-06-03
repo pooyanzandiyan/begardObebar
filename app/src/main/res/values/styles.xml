@@ -13,7 +13,11 @@
         <item name="actionMenuTextColor">@color/violet</item>
 
     </style>
-
+    <style name="CustomProgressBarHorizontal" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/prg_transition_speed_new</item>
+        <item name="android:minHeight">10dip</item>
+        <item name="android:maxHeight">20dip</item>
+    </style>
 
 
     <style name="BottomTabLayout" parent="Widget.Design.TabLayout">

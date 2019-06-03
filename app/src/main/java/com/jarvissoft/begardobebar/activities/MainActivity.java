@@ -3,17 +3,21 @@ package com.jarvissoft.begardobebar.activities;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -67,7 +71,8 @@ import static com.jarvissoft.begardobebar.G.InMarkar;
 public class MainActivity extends BaseActivity implements BaseFragment.FragmentNavigation, FragNavController.TransactionListener, FragNavController.RootFragmentListener {
 	// location last updated time
 	private String mLastUpdateTime;
-	
+	Handler handler;
+	Runnable r;
 	// location updates interval - 10sec
 	private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
 	
@@ -107,7 +112,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 	TabLayout bottomTabLayout;
 	
 	private FragNavController mNavController;
-	
+	boolean doubleBackToExitPressedOnce = false;
 	private FragmentHistory fragmentHistory;
 	
 	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -125,17 +130,23 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 				Manifest.permission.ACCESS_FINE_LOCATION)) {
 			new AlertDialog.Builder(this)
 					.setMessage("بازی بگرد و ببر نیاز به دسترسی هایی مثل جی پی اس و دسترسی به دوربین دارد لطفا در صفحه ای که بعدا بارگذاری می شود روی allow یا اجازه دادن لمس کنید")
-					.setPositiveButton("حله! بزن بریم", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							PermissionUtil.requestPermission(MainActivity.this, 0x103, Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION);
-						}}).show();
+					.setPositiveButton("حله! بزن بریم", (dialog, which) -> PermissionUtil.requestPermission(MainActivity.this, 0x100, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION)).show();
 			
 		} else {
-			init();
-			startLocationUpdates();
+			if(!isMockSettingsON(MainActivity.this)){
+				init();
+				startLocationUpdates();
+			}else{
+				new AlertDialog.Builder(MainActivity.this).setCancelable(false)
+						.setPositiveButton("باشه", (dialog, which) -> {
+							finish();
+							android.os.Process.killProcess(android.os.Process.myPid());
+							System.exit(1);
+						})
+						.setMessage("شما حالت moke location را برای موقعیت مکانی تقلبی فعال کرده اید و این خلاف قانون بازی می باشد. لطفا ابتدا ان را غیر فعال کنید و دوباره وارد برنامه شوید").create().show();
+			}
+			
 		}
-		
-
 		
 		
 		initTab();
@@ -176,8 +187,8 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 				
 			}
 		});
-		final Handler handler = new Handler();
-		final Runnable r = new Runnable() {
+		handler = new Handler();
+		r = new Runnable() {
 			public void run() {
 				if (!NetworkUtils.isConnected(MainActivity.this)) {
 					if (G.isFirst) {
@@ -192,55 +203,58 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 		handler.postDelayed(r, 1000);
 	}
 	
-
+	
 	private void startLocationUpdates() {
 		
 		mSettingsClient
 				.checkLocationSettings(mLocationSettingsRequest)
-				.addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
-					@SuppressLint("MissingPermission")
-					@Override
-					public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-						Log.i("gpsss", "All location settings are satisfied.");
-						
-						showToastMessage("درحال یافتن موقعیت مکانی شما...", Toast.LENGTH_SHORT);
-						//noinspection MissingPermission
+				.addOnSuccessListener(this, locationSettingsResponse -> {
+					Log.i("gpsss", "All location settings are satisfied.");
+					
+					showToastMessage("درحال یافتن موقعیت مکانی شما...", Toast.LENGTH_SHORT);
+					//noinspection MissingPermission
+					if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 						mFusedLocationClient.requestLocationUpdates(mLocationRequest,
 								mLocationCallback, Looper.myLooper());
-						
-						updateLocationUI();
 					}
+					
+					
+					updateLocationUI();
 				})
-				.addOnFailureListener(this, new OnFailureListener() {
-					@Override
-					public void onFailure(@NonNull Exception e) {
-						int statusCode = ((ApiException) e).getStatusCode();
-						switch (statusCode) {
-							case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-								Log.i("gpsss", "Location settings are not satisfied. Attempting to upgrade " +
-										"location settings ");
-								try {
-									// Show the dialog by calling startResolutionForResult(), and check the
-									// result in onActivityResult().
-									ResolvableApiException rae = (ResolvableApiException) e;
-									rae.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
-								} catch (IntentSender.SendIntentException sie) {
-									Log.i("gpsss", "PendingIntent unable to execute request.");
-								}
-								break;
-							case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-								String errorMessage = "Location settings are inadequate, and cannot be " +
-										"fixed here. Fix in Settings.";
-								Log.e("gpsss", errorMessage);
-								
-								Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_LONG).show();
-						}
-						
-						updateLocationUI();
+				.addOnFailureListener(this, e -> {
+					int statusCode = ((ApiException) e).getStatusCode();
+					switch (statusCode) {
+						case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+							Log.i("gpsss", "Location settings are not satisfied. Attempting to upgrade " +
+									"location settings ");
+							try {
+								// Show the dialog by calling startResolutionForResult(), and check the
+								// result in onActivityResult().
+								ResolvableApiException rae = (ResolvableApiException) e;
+								rae.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
+							} catch (IntentSender.SendIntentException sie) {
+								Log.i("gpsss", "PendingIntent unable to execute request.");
+							}
+							break;
+						case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+							String errorMessage = "Location settings are inadequate, and cannot be " +
+									"fixed here. Fix in Settings.";
+							Log.e("gpsss", errorMessage);
+							
+							Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_LONG).show();
 					}
+					
+					updateLocationUI();
 				});
 	}
-	
+	public boolean isMockSettingsON(Context context) {
+		// returns true if mock location enabled, false if not enabled.
+		if (Settings.Secure.getString(context.getContentResolver(),
+				Settings.Secure.ALLOW_MOCK_LOCATION).equals("0"))
+			return false;
+		else
+			return true;
+	}
 	private void init() {
 		mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 		mSettingsClient = LocationServices.getSettingsClient(this);
@@ -320,9 +334,20 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 						Manifest.permission.READ_EXTERNAL_STORAGE,
 						Manifest.permission.ACCESS_FINE_LOCATION)) {
 					
-					init();
-					startLocationUpdates();
-				}else{
+					if(!isMockSettingsON(MainActivity.this)){
+						init();
+						startLocationUpdates();
+					}else{
+						new AlertDialog.Builder(MainActivity.this)
+								.setCancelable(false)
+								.setPositiveButton("باشه", (dialog, which) -> {
+									finish();
+									android.os.Process.killProcess(android.os.Process.myPid());
+									System.exit(1);
+								})
+								.setMessage("شما حالت moke location را برای موقعیت مکانی تقلبی فعال کرده اید و این خلاف قانون بازی می باشد. لطفا ابتدا ان را غیر فعال کنید و دوباره وارد برنامه شوید").create().show();
+					}
+				} else {
 					longToastMessage("متاسفانه بدون اجازه دسترسی دادن، امکان بازی وجود ندارد");
 				}
 			}
@@ -350,12 +375,17 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 	
 	@Override
 	protected void onResume() {
+		if (handler != null)
+			handler.postDelayed(r, 1000);
 		super.onResume();
 	}
 	
 	
 	@Override
 	protected void onPause() {
+		if (handler != null)
+			handler.removeCallbacksAndMessages(r);
+		
 		super.onPause();
 	}
 	
@@ -386,7 +416,14 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 		} else {
 			
 			if (fragmentHistory.isEmpty()) {
+				this.doubleBackToExitPressedOnce = true;
+				showToastMessage("برای خروج لطفا دوبار روی دکمه بازگشت لمس کنید", Toast.LENGTH_SHORT);
+				handler.postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+				if(doubleBackToExitPressedOnce){
 				super.onBackPressed();
+				finish();
+				android.os.Process.killProcess(android.os.Process.myPid());
+				System.exit(1);}
 			} else {
 				
 				
@@ -425,7 +462,6 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 		}
 	}
 	
-
 	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {

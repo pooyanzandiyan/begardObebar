@@ -1,18 +1,45 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\pooyan\\Desktop\\InstaLikeFragmentTransaction-master\\androidJKS.jks')
+            storePassword '123854'
+            keyAlias = 'app'
+            keyPassword '123854'
+        }
+        debug {
+            storeFile file('C:\\Users\\pooyan\\Desktop\\InstaLikeFragmentTransaction-master\\androidJKS.jks')
+            storePassword '123854'
+            keyAlias = 'app'
+            keyPassword '123854'
+        }
+    }
     compileSdkVersion 27
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.jarvissoft.begardobebar"
         minSdkVersion 17
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+        signingConfig signingConfigs.release
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     buildTypes {
         release {
+            shrinkResources false
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            setUseProguard false
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            jniDebuggable true
+            setUseProguard false
+            testCoverageEnabled true
         }
     }
 }

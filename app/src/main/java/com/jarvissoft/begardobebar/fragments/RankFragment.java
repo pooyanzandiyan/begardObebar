@@ -14,10 +14,6 @@ import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.activities.MainActivity;
 import com.jarvissoft.begardobebar.adapter.ScoreAdapter;
 import com.jarvissoft.begardobebar.comunication.sms.AppService;
-import com.jarvissoft.begardobebar.comunication.sms.models.ScoreModel;
-import com.jarvissoft.begardobebar.comunication.sms.models.ServiceCallback;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,19 +79,16 @@ public class RankFragment extends BaseFragment {
 	
 	private void getData() {
 		showLoading();
-		AppService.getInstance().getScore(new ServiceCallback<List<ScoreModel>>() {
-			@Override
-			public void callback(List<ScoreModel> result) {
-				cancelLoading();
-				if (result != null) {
-					if (result.size() > 0) {
-						ScoreAdapter adapter = new ScoreAdapter(getActivity(), result);
-						lst.setAdapter(adapter);
-					}else
-						ToastMessage("تا کنون رتبه ای ثبت نشده است");
-				} else {
-					ToastMessage("خطا در برقراری ارتباط با سرور");
-				}
+		AppService.getInstance().getScore(result -> {
+			cancelLoading();
+			if (result != null) {
+				if (result.size() > 0) {
+					ScoreAdapter adapter = new ScoreAdapter(getActivity(), result);
+					lst.setAdapter(adapter);
+				}else
+					ToastMessage("تا کنون رتبه ای ثبت نشده است");
+			} else {
+				ToastMessage("خطا در برقراری ارتباط با سرور");
 			}
 		});
 	}

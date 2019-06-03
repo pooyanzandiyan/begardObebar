@@ -72,14 +72,16 @@ public class Question extends MyBaseActivity {
 	finish();
 	}
 	void setAnswer(String id,String answer){
-		AppService.getInstance().setAnswer(id, answer, new ServiceCallback<String>() {
-			@Override
-			public void callback(String result) {
-				if(result==null){
-					shortToastMessage("خطا در برقراری ارتباط با سرور");
-				}
+		AppService.getInstance().setAnswer(id, answer, result -> {
+			if(result==null){
+				shortToastMessage("خطا در برقراری ارتباط با سرور");
 			}
 		});
 		
+	}
+	
+	@Override
+	public void onBackPressed() {
+		return;
 	}
 }

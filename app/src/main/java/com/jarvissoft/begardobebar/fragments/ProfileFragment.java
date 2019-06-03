@@ -54,12 +54,9 @@ public class ProfileFragment extends BaseFragment {
 		checkToken();
 		
 		getData();
-		profileImg.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				G.view=view;
-				startActivity(new Intent(getActivity(), avatarActivity.class));
-			}
+		profileImg.setOnClickListener(v -> {
+			G.view=view;
+			startActivity(new Intent(getActivity(), avatarActivity.class));
 		});
 		return view; }
 	
@@ -88,44 +85,31 @@ public class ProfileFragment extends BaseFragment {
 	
 	private void getData() {
 		showLoading();
-		AppService.getInstance().getScore(new ServiceCallback<List<ScoreModel>>() {
-			@Override
-			public void callback(List<ScoreModel> result) {
-				AppService.getInstance().getProfile(SystemPrefs.getInstance().getMobileNumber(), new ServiceCallback<ProfileModel>() {
-					@Override
-					public void callback(ProfileModel result) {
-						if (result != null) {
-							TextView fullName = view.findViewById(R.id.profFullName);
-							TextView allTrue = view.findViewById(R.id.profAllTrue);
-							TextView allFalse = view.findViewById(R.id.profAllFalse);
-							TextView rank = view.findViewById(R.id.profRank);
-							fullName.setText(result.getFullName());
-							allTrue.setText(checkNullOrEmpty(result.getAllTrueQuestion()));
-							allFalse.setText(checkNullOrEmpty(result.getAllFalseQuestion()));
-							rank.setText(checkNullOrEmpty(result.getRank()).equals("0")?"نامعلوم":result.getRank());
-							ImageView avatarImg = view.findViewById(R.id.profileImg);
-							avatarImg.setImageBitmap(AvatarManager.getInstance().getAvatar(getActivity(),result.getProfileImageId()));
-							
-						}
-					}
-				});
+		AppService.getInstance().getScore(result -> AppService.getInstance().getProfile(SystemPrefs.getInstance().getMobileNumber(), result1 -> {
+			if (result1 != null) {
+				TextView fullName = view.findViewById(R.id.profFullName);
+				TextView allTrue = view.findViewById(R.id.profAllTrue);
+				TextView allFalse = view.findViewById(R.id.profAllFalse);
+				TextView rank = view.findViewById(R.id.profRank);
+				fullName.setText(result1.getFullName());
+				allTrue.setText(checkNullOrEmpty(result1.getAllTrueQuestion()));
+				allFalse.setText(checkNullOrEmpty(result1.getAllFalseQuestion()));
+				rank.setText(checkNullOrEmpty(result1.getRank()).equals("0")?"نامعلوم": result1.getRank());
+				ImageView avatarImg = view.findViewById(R.id.profileImg);
+				avatarImg.setImageBitmap(AvatarManager.getInstance().getAvatar(getActivity(), result1.getProfileImageId()));
+				
 			}
-		});
-		
-		
-		AppService.getInstance().getProfileInfo(SystemPrefs.getInstance().getMobileNumber(), new ServiceCallback<List<ProfileInfo>>() {
-			@Override
-			public void callback(List<ProfileInfo> result) {
+			AppService.getInstance().getProfileInfo(SystemPrefs.getInstance().getMobileNumber(), r -> {
 				cancelLoading();
 				if (result != null) {
 					if (result.size() > 0) {
-						ProfileInfoAdapter profileInfoAdapter = new ProfileInfoAdapter(getActivity(), result);
+						ProfileInfoAdapter profileInfoAdapter = new ProfileInfoAdapter(getActivity(), r);
 						lst.setAdapter(profileInfoAdapter);
 					}
 				} else {
 					ToastMessage("خطا در برقراری ارتباط با سرور");
 				}
-			}
-		});
+			});
+		}));
 	}
 }

@@ -66,11 +66,6 @@ public class ProfileInfoAdapter implements ListAdapter {
 		if (convertView == null) {
 			LayoutInflater layoutInflater = LayoutInflater.from(context);
 			convertView = layoutInflater.inflate(R.layout.item_profile_info, null);
-			convertView.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-				}
-			});
 			TextView day = convertView.findViewById(R.id.profInfoDay);
 			TextView trueQuestion = convertView.findViewById(R.id.profInfoTrueQuestion);
 			TextView falseQuestion = convertView.findViewById(R.id.profInfoFalseQuestion);

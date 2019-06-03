@@ -14,10 +14,6 @@ import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.activities.MainActivity;
 import com.jarvissoft.begardobebar.adapter.NewsAdapter;
 import com.jarvissoft.begardobebar.comunication.sms.AppService;
-import com.jarvissoft.begardobebar.comunication.sms.models.NewsModel;
-import com.jarvissoft.begardobebar.comunication.sms.models.ServiceCallback;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,20 +80,17 @@ public class HomeFragment extends BaseFragment {
 	
 	private void getData() {
 		showLoading();
-		AppService.getInstance().getNews(new ServiceCallback<List<NewsModel>>() {
-			@Override
-			public void callback(List<NewsModel> result) {
-				cancelLoading();
-				if (result != null) {
-					if (result.size() >= 1) {
-						NewsAdapter adapter = new NewsAdapter(getActivity(), result);
-						lst.setAdapter(adapter);
-					} else {
-						ToastMessage("در حال حاضر خبری موجود نیست");
-					}
+		AppService.getInstance().getNews(result -> {
+			cancelLoading();
+			if (result != null) {
+				if (result.size() >= 1) {
+					NewsAdapter adapter = new NewsAdapter(getActivity(), result);
+					lst.setAdapter(adapter);
 				} else {
-					ToastMessage("خطا در برقراری ارتباط با سرور");
+					ToastMessage("در حال حاضر خبری موجود نیست");
 				}
+			} else {
+				ToastMessage("خطا در برقراری ارتباط با سرور");
 			}
 		});
 	}

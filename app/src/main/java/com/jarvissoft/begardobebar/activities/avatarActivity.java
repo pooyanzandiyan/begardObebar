@@ -31,16 +31,13 @@ public class avatarActivity extends MyBaseActivity {
 				break;
 			case R.id.btnAvatarSave:
 				if (!G.imgId.equals("")) {
-					AppService.getInstance().setAvatar(SystemPrefs.getInstance().getMobileNumber(), G.imgId, new ServiceCallback<String>() {
-						@Override
-						public void callback(String result) {
-							if(result!=null)
-								if(!result.equals("")){
-									finish();
-									setResult(Activity.RESULT_OK);
-									shortToastMessage("با موفقیت ثبت شد");
-								}
-						}
+					AppService.getInstance().setAvatar(SystemPrefs.getInstance().getMobileNumber(), G.imgId, result -> {
+						if(result!=null)
+							if(!result.equals("")){
+								finish();
+								setResult(Activity.RESULT_OK);
+								shortToastMessage("با موفقیت ثبت شد");
+							}
 					});
 				}
 				finish();

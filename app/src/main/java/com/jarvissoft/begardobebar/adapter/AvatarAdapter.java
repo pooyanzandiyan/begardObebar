@@ -72,16 +72,13 @@ public class AvatarAdapter implements ListAdapter {
 		if (convertView == null) {
 			LayoutInflater layoutInflater = LayoutInflater.from(context);
 			convertView = layoutInflater.inflate(R.layout.avatar_item, null);
-			convertView.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					G.imgId = String.valueOf(imgId);
-					if (view!=null) {
-						ImageView avatar = view.findViewById(R.id.profileImg);
-						avatar.setImageBitmap(AvatarManager.getInstance().getAvatar(context, imgId));
-					}
-					
+			convertView.setOnClickListener(v -> {
+				G.imgId = String.valueOf(imgId);
+				if (view!=null) {
+					ImageView avatar = view.findViewById(R.id.profileImg);
+					avatar.setImageBitmap(AvatarManager.getInstance().getAvatar(context, imgId));
 				}
+				
 			});
 			ImageView avatarImg = convertView.findViewById(R.id.imgAvatar);
 			avatarImg.setImageBitmap(AvatarManager.getInstance().getAvatar(context, imgId));

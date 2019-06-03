@@ -68,11 +68,6 @@ public class NewsAdapter implements ListAdapter {
 		if (convertView == null) {
 			LayoutInflater layoutInflater = LayoutInflater.from(context);
 			convertView = layoutInflater.inflate(R.layout.item_news, null);
-			convertView.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-				}
-			});
 			TextView tittle = convertView.findViewById(R.id.txtTitle);
 			TextView text = convertView.findViewById(R.id.txtNewsText);
 			ImageView imag = convertView.findViewById(R.id.imgNews);

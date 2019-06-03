@@ -68,11 +68,6 @@ public class ScoreAdapter implements ListAdapter {
 		if (convertView == null) {
 			LayoutInflater layoutInflater = LayoutInflater.from(context);
 			convertView = layoutInflater.inflate(R.layout.item_rank, null);
-			convertView.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-				}
-			});
 			TextView number = convertView.findViewById(R.id.txtNumber);
 			TextView fullname = convertView.findViewById(R.id.txtFullName);
 			TextView score = convertView.findViewById(R.id.txtScore);

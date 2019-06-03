@@ -15,9 +15,6 @@ import android.widget.EditText;
 import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.comunication.sms.AppService;
 import com.jarvissoft.begardobebar.comunication.sms.SmsService;
-import com.jarvissoft.begardobebar.comunication.sms.models.ConfirmVerificationModel;
-import com.jarvissoft.begardobebar.comunication.sms.models.ProfileModel;
-import com.jarvissoft.begardobebar.comunication.sms.models.ServiceCallback;
 import com.jarvissoft.begardobebar.utils.NetworkUtils;
 import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
 
@@ -47,12 +44,7 @@ public class ConfirmAuthenticationActivity extends MyBaseActivity {
 			
 			}
 		});
-		findViewById(R.id.btn_save).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				login();
-			}
-		});
+		findViewById(R.id.btn_save).setOnClickListener(v -> login());
 	}
 	void login(){
 
@@ -63,35 +55,29 @@ public class ConfirmAuthenticationActivity extends MyBaseActivity {
 			if(isValidPass(pass)){
 				if (NetworkUtils.isConnected(ConfirmAuthenticationActivity.this)) {
 					findViewById(R.id.lytLoading).setVisibility(View.VISIBLE);
-					SmsService.getInstance().ConfirmVerification(SystemPrefs.getInstance().getMobileNumber(), pass, new ServiceCallback<ConfirmVerificationModel>() {
-						@Override
-						public void callback(ConfirmVerificationModel result) {
-							findViewById(R.id.btn_save).setEnabled(true);
-							findViewById(R.id.lytLoading).setVisibility(View.GONE);
-							if (result != null)
-								if(result.getStatus()){
-									SystemPrefs.getInstance().setToken(result.getToken());
-									SystemPrefs.getInstance().setLogedIn(true);
-									
-									AppService.getInstance().getProfile(SystemPrefs.getInstance().getMobileNumber(), new ServiceCallback<ProfileModel>() {
-										@Override
-										public void callback(ProfileModel result) {
-											if (result != null) {
-												if(result.getFullName().length()<1){
-													startActivity(new Intent(ConfirmAuthenticationActivity.this, ChangeProfile.class));
-												}else{
-													startActivity(new Intent(ConfirmAuthenticationActivity.this, MainActivity.class));
-												}
-												finish();
-											}
+					SmsService.getInstance().ConfirmVerification(SystemPrefs.getInstance().getMobileNumber(), pass, result -> {
+						findViewById(R.id.btn_save).setEnabled(true);
+						findViewById(R.id.lytLoading).setVisibility(View.GONE);
+						if (result != null)
+							if(result.getStatus()){
+								SystemPrefs.getInstance().setToken(result.getToken());
+								SystemPrefs.getInstance().setLogedIn(true);
+								
+								AppService.getInstance().getProfile(SystemPrefs.getInstance().getMobileNumber(), result1 -> {
+									if (result1 != null) {
+										if(result1.getFullName().length()<1){
+											startActivity(new Intent(ConfirmAuthenticationActivity.this, ChangeProfile.class));
+										}else{
+											startActivity(new Intent(ConfirmAuthenticationActivity.this, MainActivity.class));
 										}
-									});
-									
-								}
-								else
-									textInputLayout.setError(result.getMsg());
-							
-						}
+										finish();
+									}
+								});
+								
+							}
+							else
+								textInputLayout.setError(result.getMsg());
+						
 					});
 				}else{
 					textInputLayout.setError("لطفا ابتدا به اینترنت متصل شوید");

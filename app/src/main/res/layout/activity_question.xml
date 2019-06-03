@@ -15,9 +15,9 @@
 		android:id="@+id/prgTime"
 		android:layout_width="match_parent"
 		android:layout_height="50dp"
-		style="?android:attr/progressBarStyleHorizontal"
+		style="@style/CustomProgressBarHorizontal"
 		android:min="0"
-		android:max="30"/>
+		android:max="15"/>
 <LinearLayout
 	android:layout_width="match_parent"
 	android:orientation="vertical"

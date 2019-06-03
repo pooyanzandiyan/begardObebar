@@ -47,11 +47,7 @@ public class ScanFragment extends BaseFragment {
 				alertDialog.setTitle("خطا");
 				alertDialog.setMessage("خطا در اسکن کردن qr کد !");
 				alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "باشه",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.dismiss();
-							}
-						});
+						(dialog, which) -> dialog.dismiss());
 				alertDialog.show();
 			}
 			return;
@@ -63,22 +59,28 @@ public class ScanFragment extends BaseFragment {
 			showLoading();
 			
 			String result = data.getStringExtra("com.jarvissoft.qrcodescanner.got_qr_scan_relult");
-			if(isValidQrCode(result))
-				AppService.getInstance().getQuestion(result, SystemPrefs.getInstance().getMobileNumber(), new ServiceCallback<QuestionModel>() {
-					@Override
-					public void callback(QuestionModel result) {
-						cancelLoading();
-						if(result!=null){
-							if(result.isStatus()){
-							G.question=result;
-							startActivity(new Intent(getActivity(), Question.class));}
-							else{
-								ToastMessage("شما قبلا این qr کد را اسکن کرده اید");
+			if (isValidQrCode(result))
+				AppService.getInstance().getQuestion(result, SystemPrefs.getInstance().getMobileNumber(), result1 -> {
+					cancelLoading();
+					if (result1 != null) {
+						if (result1.isStatus()) {
+							if (result1.getQuestion() != null) {
+								if (!result1.getQuestion().equals("")) {
+									G.question = result1;
+									startActivity(new Intent(getActivity(), Question.class));
+								} else {
+									ToastMessage("سوالی برای این روز در سرور وجود ندارد.لطفا ساعاتی بعد مراجعه کنید");
+								}
+								
+							} else {
+								ToastMessage("سوالی برای این روز در سرور وجود ندارد.لطفا ساعاتی بعد مراجعه کنید");
 							}
+						} else {
+							ToastMessage("شما قبلا این qr کد را اسکن کرده اید");
 						}
 					}
 				});
-
+			
 			
 		}
 	}
@@ -104,7 +106,7 @@ public class ScanFragment extends BaseFragment {
 	                         Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_scan, container, false);
 		checkToken();
-
+		
 		button = view.findViewById(R.id.button_start_scan);
 		button.setEnabled(false);
 		final Handler handler = new Handler();
@@ -116,12 +118,9 @@ public class ScanFragment extends BaseFragment {
 		};
 		handler.postDelayed(r, 1000);
 		
-		button.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(getActivity(), QrCodeActivity.class);
-				startActivityForResult(i, REQUEST_CODE_QR_SCAN);
-			}
+		button.setOnClickListener(v -> {
+			Intent i = new Intent(getActivity(), QrCodeActivity.class);
+			startActivityForResult(i, REQUEST_CODE_QR_SCAN);
 		});
 		ButterKnife.bind(this, view);
 		((MainActivity) getActivity()).updateToolbarTitle("اسکن کن");

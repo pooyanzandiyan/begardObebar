@@ -16,20 +16,20 @@
         android:supportsRtl="true"
         android:name="com.jarvissoft.begardobebar.G"
         android:theme="@style/AppTheme">
-        <activity android:name="com.jarvissoft.begardobebar.activities.SplashScreenActivity">
+        <activity android:screenOrientation="portrait" android:name="com.jarvissoft.begardobebar.activities.SplashScreenActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
-        <activity android:name="com.jarvissoft.begardobebar.activities.MainActivity"/>
-        <activity android:name="com.jarvissoft.begardobebar.activities.AuthenticationActivity"/>
-        <activity android:name="com.jarvissoft.begardobebar.activities.ConfirmAuthenticationActivity"/>
-        <activity android:name="com.jarvissoft.begardobebar.activities.ChangeProfile"/>
-        <activity android:name="com.jarvissoft.begardobebar.activities.Question"/>
-        <activity android:name="com.jarvissoft.begardobebar.activities.avatarActivity"/>
-        <activity android:name="com.jarvissoft.begardobebar.activities.noInternet"/>
+        <activity android:screenOrientation="portrait"  android:name="com.jarvissoft.begardobebar.activities.MainActivity"/>
+        <activity android:screenOrientation="portrait"  android:name="com.jarvissoft.begardobebar.activities.AuthenticationActivity"/>
+        <activity  android:screenOrientation="portrait" android:name="com.jarvissoft.begardobebar.activities.ConfirmAuthenticationActivity"/>
+        <activity  android:screenOrientation="portrait" android:name="com.jarvissoft.begardobebar.activities.ChangeProfile"/>
+        <activity  android:screenOrientation="portrait" android:name="com.jarvissoft.begardobebar.activities.Question"/>
+        <activity  android:screenOrientation="portrait" android:name="com.jarvissoft.begardobebar.activities.avatarActivity"/>
+        <activity  android:screenOrientation="portrait" android:name="com.jarvissoft.begardobebar.activities.noInternet"/>
     </application>
 
 </manifest>

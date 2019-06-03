@@ -43,16 +43,13 @@ public class BaseFragment extends Fragment {
 	}
 	
 	void checkToken() {
-		AppService.getInstance().checkToken(new ServiceCallback<String>() {
-			@Override
-			public void callback(String result) {
-				if (result != null) {
-					if (result.equals("nok")) {
-						SystemPrefs.getInstance().setLogedIn(false);
-						startActivity(new Intent(getActivity(), AuthenticationActivity.class));
-						ToastMessage("توکن شما منقضی شده است. لطفا دوباره وارد شوید");
-						getActivity().finish();
-					}
+		AppService.getInstance().checkToken(result -> {
+			if (result != null) {
+				if (result.equals("nok")) {
+					SystemPrefs.getInstance().setLogedIn(false);
+					startActivity(new Intent(getActivity(), AuthenticationActivity.class));
+					ToastMessage("توکن شما منقضی شده است. لطفا دوباره وارد شوید");
+					getActivity().finish();
 				}
 			}
 		});
