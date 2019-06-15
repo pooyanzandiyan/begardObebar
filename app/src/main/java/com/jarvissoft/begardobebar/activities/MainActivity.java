@@ -1,10 +1,8 @@
 package com.jarvissoft.begardobebar.activities;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -22,15 +20,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.jarvissoft.begardobebar.G;
+import com.jarvissoft.begardobebar.BegardObebarApplication;
 import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.fragments.BaseFragment;
 import com.jarvissoft.begardobebar.fragments.HomeFragment;
@@ -51,12 +47,9 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -66,7 +59,7 @@ import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.jarvissoft.begardobebar.G.InMarkar;
+import static com.jarvissoft.begardobebar.BegardObebarApplication.InMarkar;
 
 public class MainActivity extends BaseActivity implements BaseFragment.FragmentNavigation, FragNavController.TransactionListener, FragNavController.RootFragmentListener {
 	// location last updated time
@@ -191,9 +184,9 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 		r = new Runnable() {
 			public void run() {
 				if (!NetworkUtils.isConnected(MainActivity.this)) {
-					if (G.isFirst) {
-						startActivity(new Intent(MainActivity.this, noInternet.class));
-						G.isFirst = false;
+					if (BegardObebarApplication.isFirst) {
+						startActivity(new Intent(MainActivity.this, NoInternetActivity.class));
+						BegardObebarApplication.isFirst = false;
 					}
 				}
 				handler.postDelayed(this, 2000);

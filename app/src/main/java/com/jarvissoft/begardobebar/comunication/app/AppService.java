@@ -1,6 +1,6 @@
 package com.jarvissoft.begardobebar.comunication.app;
 
-import com.jarvissoft.begardobebar.G;
+import com.jarvissoft.begardobebar.BegardObebarApplication;
 import com.jarvissoft.begardobebar.comunication.models.NewsModel;
 import com.jarvissoft.begardobebar.comunication.models.ProfileInfo;
 import com.jarvissoft.begardobebar.comunication.models.ProfileModel;
@@ -29,7 +29,7 @@ public class AppService {
 		return instance;
 	}
 	
-	private static String TAG = G.getInstance().getClass().getSimpleName();
+	private static String TAG = BegardObebarApplication.getInstance().getClass().getSimpleName();
 	
 	public AppService() {
 		OkHttpClient.Builder builder = new OkHttpClient.Builder();

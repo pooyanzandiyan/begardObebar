@@ -8,15 +8,15 @@ import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
-public class G extends Application {
+public class BegardObebarApplication extends Application {
 public static boolean InMarkar=false;
-	private static final G instance = new G();
+	private static final BegardObebarApplication instance = new BegardObebarApplication();
 	public static QuestionModel question ;
 	public static String imgId ;
 	public static boolean isFirst=true ;
 	public static View view;
 	
-	public static G getInstance() {
+	public static BegardObebarApplication getInstance() {
 		return instance;
 	}
 	@Override

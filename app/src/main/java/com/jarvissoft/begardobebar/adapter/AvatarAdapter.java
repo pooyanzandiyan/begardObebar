@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 
-import com.jarvissoft.begardobebar.G;
+import com.jarvissoft.begardobebar.BegardObebarApplication;
 import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.utils.AvatarManager;
 
@@ -73,7 +73,7 @@ public class AvatarAdapter implements ListAdapter {
 			LayoutInflater layoutInflater = LayoutInflater.from(context);
 			convertView = layoutInflater.inflate(R.layout.avatar_item, null);
 			convertView.setOnClickListener(v -> {
-				G.imgId = String.valueOf(imgId);
+				BegardObebarApplication.imgId = String.valueOf(imgId);
 				if (view!=null) {
 					ImageView avatar = view.findViewById(R.id.profileImg);
 					avatar.setImageBitmap(AvatarManager.getInstance().getAvatar(context, imgId));

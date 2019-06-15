@@ -13,12 +13,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.jarvissoft.begardobebar.G;
+import com.jarvissoft.begardobebar.BegardObebarApplication;
 import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.activities.MainActivity;
-import com.jarvissoft.begardobebar.activities.avatarActivity;
+import com.jarvissoft.begardobebar.activities.AvatarActivity;
 import com.jarvissoft.begardobebar.adapter.ProfileInfoAdapter;
-import com.jarvissoft.begardobebar.comunication.sms.app.AppService;
+import com.jarvissoft.begardobebar.comunication.app.AppService;
 import com.jarvissoft.begardobebar.utils.AvatarManager;
 import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
 
@@ -49,8 +49,8 @@ public class ProfileFragment extends BaseFragment {
 		
 		getData();
 		profileImg.setOnClickListener(v -> {
-			G.view=view;
-			startActivity(new Intent(getActivity(), avatarActivity.class));
+			BegardObebarApplication.view=view;
+			startActivity(new Intent(getActivity(), AvatarActivity.class));
 		});
 		return view; }
 	

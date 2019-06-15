@@ -1,6 +1,6 @@
 package com.jarvissoft.begardobebar.comunication.sms;
 
-import com.jarvissoft.begardobebar.G;
+import com.jarvissoft.begardobebar.BegardObebarApplication;
 import com.jarvissoft.begardobebar.comunication.models.ConfirmVerificationModel;
 import com.jarvissoft.begardobebar.comunication.models.SendVerificationModel;
 import com.jarvissoft.begardobebar.comunication.models.ServiceCallback;
@@ -23,7 +23,7 @@ public class SmsService {
 		return instance;
 	}
 	
-	private static String TAG = G.getInstance().getClass().getSimpleName();
+	private static String TAG = BegardObebarApplication.getInstance().getClass().getSimpleName();
 	
 	public SmsService() {
 		OkHttpClient.Builder builder = new OkHttpClient.Builder();

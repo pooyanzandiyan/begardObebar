@@ -12,16 +12,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.jarvissoft.qrcodescanner.QrCodeActivity;
-import com.jarvissoft.begardobebar.G;
+import com.jarvissoft.begardobebar.BegardObebarApplication;
 import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.activities.MainActivity;
-import com.jarvissoft.begardobebar.activities.Question;
-import com.jarvissoft.begardobebar.comunication.sms.app.AppService;
+import com.jarvissoft.begardobebar.activities.QuestionActivity;
+import com.jarvissoft.begardobebar.comunication.app.AppService;
 import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
 
 import butterknife.ButterKnife;
 
-import static com.jarvissoft.begardobebar.G.InMarkar;
+import static com.jarvissoft.begardobebar.BegardObebarApplication.InMarkar;
 
 
 public class ScanFragment extends BaseFragment {
@@ -63,8 +63,8 @@ public class ScanFragment extends BaseFragment {
 						if (result1.isStatus()) {
 							if (result1.getQuestion() != null) {
 								if (!result1.getQuestion().equals("")) {
-									G.question = result1;
-									startActivity(new Intent(getActivity(), Question.class));
+									BegardObebarApplication.question = result1;
+									startActivity(new Intent(getActivity(), QuestionActivity.class));
 								} else {
 									ToastMessage("سوالی برای این روز در سرور وجود ندارد.لطفا ساعاتی بعد مراجعه کنید");
 								}

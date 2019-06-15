@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 
-import com.jarvissoft.begardobebar.G;
+import com.jarvissoft.begardobebar.BegardObebarApplication;
 import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.utils.NetworkUtils;
 
-public class noInternet extends MyBaseActivity {
+public class NoInternetActivity extends MyBaseActivity {
 	Handler handler;
 	Runnable r;
 	
@@ -20,8 +20,8 @@ public class noInternet extends MyBaseActivity {
 		handler = new Handler();
 		r = new Runnable() {
 			public void run() {
-				if (NetworkUtils.isConnected(noInternet.this)) {
-					G.isFirst = true;
+				if (NetworkUtils.isConnected(NoInternetActivity.this)) {
+					BegardObebarApplication.isFirst = true;
 					finish();
 				}
 				handler.postDelayed(this, 1000);

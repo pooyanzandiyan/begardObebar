@@ -8,12 +8,12 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.jarvissoft.begardobebar.G;
+import com.jarvissoft.begardobebar.BegardObebarApplication;
 import com.jarvissoft.begardobebar.R;
-import com.jarvissoft.begardobebar.comunication.sms.app.AppService;
+import com.jarvissoft.begardobebar.comunication.app.AppService;
 import com.jarvissoft.begardobebar.comunication.models.QuestionModel;
 
-public class Question extends MyBaseActivity {
+public class QuestionActivity extends MyBaseActivity {
 	CountDownTimer countDownTimer;
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,8 +25,8 @@ public class Question extends MyBaseActivity {
 		Button answer3=findViewById(R.id.answer3);
 		Button answer4=findViewById(R.id.answer4);
 		final ProgressBar prg=findViewById(R.id.prgTime);
-		if(G.question!=null){
-			QuestionModel q =G.question;
+		if(BegardObebarApplication.question!=null){
+			QuestionModel q = BegardObebarApplication.question;
 			question.setText(q.getQuestion());
 			answer1.setText(q.getAnswer1());
 			answer2.setText(q.getAnswer2());
@@ -43,7 +43,7 @@ public class Question extends MyBaseActivity {
 			
 			@Override
 			public void onFinish() {
-				setAnswer(G.question.getId(),"5");
+				setAnswer(BegardObebarApplication.question.getId(),"5");
 				finish();
 			}
 		};
@@ -67,7 +67,7 @@ public class Question extends MyBaseActivity {
 			answer="4";
 			break;
 	}
-		setAnswer(G.question.getId(),answer);
+		setAnswer(BegardObebarApplication.question.getId(),answer);
 	finish();
 	}
 	void setAnswer(String id,String answer){

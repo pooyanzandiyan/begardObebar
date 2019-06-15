@@ -18,7 +18,7 @@ import com.jarvissoft.begardobebar.utils.AvatarManager;
 import com.jarvissoft.begardobebar.utils.NetworkUtils;
 import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
 
-import static com.jarvissoft.begardobebar.G.imgId;
+import static com.jarvissoft.begardobebar.BegardObebarApplication.imgId;
 
 public class ChangeProfile extends MyBaseActivity {
 	TextInputLayout txtInputLayout;
@@ -30,7 +30,7 @@ public class ChangeProfile extends MyBaseActivity {
 		setContentView(R.layout.activity_change_profile);
 		final EditText editText = findViewById(R.id.input_name);
 		txtInputLayout = findViewById(R.id.mobileInputLayout);
-		findViewById(R.id.setProfileImage).setOnClickListener(v -> startActivityForResult(new Intent(ChangeProfile.this, avatarActivity.class), ChangeImageRequestCode));
+		findViewById(R.id.setProfileImage).setOnClickListener(v -> startActivityForResult(new Intent(ChangeProfile.this, AvatarActivity.class), ChangeImageRequestCode));
 		findViewById(R.id.btn_save).setOnClickListener(v -> {
 			hideKeyboard(ChangeProfile.this);
 			findViewById(R.id.btn_save).setEnabled(false);
