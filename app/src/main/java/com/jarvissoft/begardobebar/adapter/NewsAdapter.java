@@ -10,7 +10,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.jarvissoft.begardobebar.R;
-import com.jarvissoft.begardobebar.comunication.sms.models.NewsModel;
+import com.jarvissoft.begardobebar.comunication.models.NewsModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

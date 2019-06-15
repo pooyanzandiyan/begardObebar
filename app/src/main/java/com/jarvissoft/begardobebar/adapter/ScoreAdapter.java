@@ -10,7 +10,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.jarvissoft.begardobebar.R;
-import com.jarvissoft.begardobebar.comunication.sms.models.ScoreModel;
+import com.jarvissoft.begardobebar.comunication.models.ScoreModel;
 import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
 
 import java.util.List;

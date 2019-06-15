@@ -12,8 +12,6 @@ import android.widget.EditText;
 
 import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.comunication.sms.SmsService;
-import com.jarvissoft.begardobebar.comunication.sms.models.SendVerificationModel;
-import com.jarvissoft.begardobebar.comunication.sms.models.ServiceCallback;
 import com.jarvissoft.begardobebar.utils.NetworkUtils;
 import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
 

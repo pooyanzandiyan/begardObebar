@@ -9,8 +9,7 @@ import android.widget.GridView;
 import com.jarvissoft.begardobebar.G;
 import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.adapter.AvatarAdapter;
-import com.jarvissoft.begardobebar.comunication.sms.AppService;
-import com.jarvissoft.begardobebar.comunication.sms.models.ServiceCallback;
+import com.jarvissoft.begardobebar.comunication.sms.app.AppService;
 import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
 
 public class avatarActivity extends MyBaseActivity {

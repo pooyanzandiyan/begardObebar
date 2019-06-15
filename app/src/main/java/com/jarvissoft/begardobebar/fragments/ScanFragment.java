@@ -1,7 +1,6 @@
 package com.jarvissoft.begardobebar.fragments;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,9 +16,7 @@ import com.jarvissoft.begardobebar.G;
 import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.activities.MainActivity;
 import com.jarvissoft.begardobebar.activities.Question;
-import com.jarvissoft.begardobebar.comunication.sms.AppService;
-import com.jarvissoft.begardobebar.comunication.sms.models.QuestionModel;
-import com.jarvissoft.begardobebar.comunication.sms.models.ServiceCallback;
+import com.jarvissoft.begardobebar.comunication.sms.app.AppService;
 import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
 
 import butterknife.ButterKnife;

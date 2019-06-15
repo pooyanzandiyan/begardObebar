@@ -10,9 +10,8 @@ import android.widget.TextView;
 
 import com.jarvissoft.begardobebar.G;
 import com.jarvissoft.begardobebar.R;
-import com.jarvissoft.begardobebar.comunication.sms.AppService;
-import com.jarvissoft.begardobebar.comunication.sms.models.QuestionModel;
-import com.jarvissoft.begardobebar.comunication.sms.models.ServiceCallback;
+import com.jarvissoft.begardobebar.comunication.sms.app.AppService;
+import com.jarvissoft.begardobebar.comunication.models.QuestionModel;
 
 public class Question extends MyBaseActivity {
 	CountDownTimer countDownTimer;

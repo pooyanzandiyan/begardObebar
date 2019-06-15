@@ -225,8 +225,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 					int statusCode = ((ApiException) e).getStatusCode();
 					switch (statusCode) {
 						case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-							Log.i("gpsss", "Location settings are not satisfied. Attempting to upgrade " +
-									"location settings ");
+							
 							try {
 								// Show the dialog by calling startResolutionForResult(), and check the
 								// result in onActivityResult().
@@ -282,10 +281,6 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 	private void updateLocationUI() {
 		if (mCurrentLocation != null) {
 			
-			Log.v("gpss",
-					"Lat: " + mCurrentLocation.getLatitude() + ", " +
-							"Lng: " + mCurrentLocation.getLongitude()
-			);
 			ArrayList<LatLng> polygon = new ArrayList<LatLng>();
 			polygon.add(new LatLng(35.736041, 51.533793));
 			polygon.add(new LatLng(35.735878, 51.535038));
@@ -293,9 +288,6 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 			polygon.add(new LatLng(35.734511, 51.534782));
 			LatLng myLocation = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
 			InMarkar = PolyUtil.containsLocation(myLocation, polygon, false);
-			Log.v("gpss",
-					"ok: " + InMarkar);
-			Log.v("gpss", "Last updated on: " + mLastUpdateTime);
 		}
 		
 	}

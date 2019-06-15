@@ -3,7 +3,7 @@ package com.jarvissoft.begardobebar;
 import android.app.Application;
 import android.view.View;
 
-import com.jarvissoft.begardobebar.comunication.sms.models.QuestionModel;
+import com.jarvissoft.begardobebar.comunication.models.QuestionModel;
 import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;

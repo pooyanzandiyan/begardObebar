@@ -18,15 +18,9 @@ import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.activities.MainActivity;
 import com.jarvissoft.begardobebar.activities.avatarActivity;
 import com.jarvissoft.begardobebar.adapter.ProfileInfoAdapter;
-import com.jarvissoft.begardobebar.comunication.sms.AppService;
-import com.jarvissoft.begardobebar.comunication.sms.models.ProfileInfo;
-import com.jarvissoft.begardobebar.comunication.sms.models.ProfileModel;
-import com.jarvissoft.begardobebar.comunication.sms.models.ScoreModel;
-import com.jarvissoft.begardobebar.comunication.sms.models.ServiceCallback;
+import com.jarvissoft.begardobebar.comunication.sms.app.AppService;
 import com.jarvissoft.begardobebar.utils.AvatarManager;
 import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -101,8 +95,8 @@ public class ProfileFragment extends BaseFragment {
 			}
 			AppService.getInstance().getProfileInfo(SystemPrefs.getInstance().getMobileNumber(), r -> {
 				cancelLoading();
-				if (result != null) {
-					if (result.size() > 0) {
+				if (r != null) {
+					if (r.size() > 0) {
 						ProfileInfoAdapter profileInfoAdapter = new ProfileInfoAdapter(getActivity(), r);
 						lst.setAdapter(profileInfoAdapter);
 					}

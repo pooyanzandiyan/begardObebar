@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.jarvissoft.begardobebar.R;
-import com.jarvissoft.begardobebar.comunication.sms.AppService;
-import com.jarvissoft.begardobebar.comunication.sms.models.ServiceCallback;
+import com.jarvissoft.begardobebar.comunication.sms.app.AppService;
+import com.jarvissoft.begardobebar.comunication.models.ServiceCallback;
 import com.jarvissoft.begardobebar.utils.AvatarManager;
 import com.jarvissoft.begardobebar.utils.NetworkUtils;
 import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;

@@ -13,7 +13,7 @@ import android.widget.ListView;
 import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.activities.MainActivity;
 import com.jarvissoft.begardobebar.adapter.NewsAdapter;
-import com.jarvissoft.begardobebar.comunication.sms.AppService;
+import com.jarvissoft.begardobebar.comunication.sms.app.AppService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

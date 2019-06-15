@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.widget.LinearLayout;
@@ -57,6 +58,7 @@ public class MyBaseActivity extends AppCompatActivity {
 	}
 	
 	public void showToastMessage(String message, int duration) {
+		
 		Toast toast = Toast.makeText(getApplicationContext(), String.format(" %s ", message), duration);
 		LinearLayout toastLayout = (LinearLayout) toast.getView();
 		TextView toastMessage = toastLayout.findViewById(android.R.id.message);

@@ -1,9 +1,9 @@
 package com.jarvissoft.begardobebar.comunication.sms;
 
 import com.jarvissoft.begardobebar.G;
-import com.jarvissoft.begardobebar.comunication.sms.models.ConfirmVerificationModel;
-import com.jarvissoft.begardobebar.comunication.sms.models.SendVerificationModel;
-import com.jarvissoft.begardobebar.comunication.sms.models.ServiceCallback;
+import com.jarvissoft.begardobebar.comunication.models.ConfirmVerificationModel;
+import com.jarvissoft.begardobebar.comunication.models.SendVerificationModel;
+import com.jarvissoft.begardobebar.comunication.models.ServiceCallback;
 import com.jarvissoft.begardobebar.utils.NetworkUtils;
 
 import java.util.concurrent.TimeUnit;

@@ -13,7 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.jarvissoft.begardobebar.R;
-import com.jarvissoft.begardobebar.comunication.sms.AppService;
+import com.jarvissoft.begardobebar.comunication.sms.app.AppService;
 import com.jarvissoft.begardobebar.comunication.sms.SmsService;
 import com.jarvissoft.begardobebar.utils.NetworkUtils;
 import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;

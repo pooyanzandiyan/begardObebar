@@ -9,7 +9,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.jarvissoft.begardobebar.R;
-import com.jarvissoft.begardobebar.comunication.sms.models.ProfileInfo;
+import com.jarvissoft.begardobebar.comunication.models.ProfileInfo;
 
 import java.util.List;
 

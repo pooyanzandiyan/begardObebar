@@ -9,8 +9,7 @@ import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
 import com.jarvissoft.begardobebar.activities.AuthenticationActivity;
-import com.jarvissoft.begardobebar.comunication.sms.AppService;
-import com.jarvissoft.begardobebar.comunication.sms.models.ServiceCallback;
+import com.jarvissoft.begardobebar.comunication.sms.app.AppService;
 import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
 
 /**

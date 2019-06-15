@@ -1,7 +1,7 @@
 package com.jarvissoft.begardobebar.comunication.sms;
 
-import com.jarvissoft.begardobebar.comunication.sms.models.ConfirmVerificationModel;
-import com.jarvissoft.begardobebar.comunication.sms.models.SendVerificationModel;
+import com.jarvissoft.begardobebar.comunication.models.ConfirmVerificationModel;
+import com.jarvissoft.begardobebar.comunication.models.SendVerificationModel;
 
 import retrofit2.Call;
 import retrofit2.http.POST;

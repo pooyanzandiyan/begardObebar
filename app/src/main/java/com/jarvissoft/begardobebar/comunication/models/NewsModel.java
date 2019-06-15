@@ -1,4 +1,4 @@
-package com.jarvissoft.begardobebar.comunication.sms.models;
+package com.jarvissoft.begardobebar.comunication.models;
 
 import com.google.gson.annotations.SerializedName;
 
