@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">بگرد و ببر</string>
 
-    <string name="title_activity_scan_qr_code">بار کد رو اسکن و امتیاز جمع کن</string>
+    <string name="title_activity_scan_qr_code">بار کد رو اسکن و به سوالات جواب بده</string>
     <string name="qc_code_close">بستن</string>
     <string name="qr_code_select_picture">Picture</string>
     <string name="qr_code_open_flash_light">روشن کردن فلش</string>

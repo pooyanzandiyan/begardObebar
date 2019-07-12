@@ -3,6 +3,7 @@ package com.jarvissoft.begardobebar.activities;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -38,6 +39,7 @@ import com.jarvissoft.begardobebar.utils.NetworkUtils;
 import com.jarvissoft.begardobebar.utils.PermissionUtil;
 import com.jarvissoft.begardobebar.utils.PolyUtil;
 import com.jarvissoft.begardobebar.utils.Utils;
+import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
 import com.jarvissoft.begardobebar.views.FragNavController;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -91,6 +93,20 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 	@BindView(R.id.toolbar)
 	Toolbar toolbar;
 	
+	@Override
+	public void finish() {
+		handler.removeCallbacks(r);
+		handler.removeCallbacksAndMessages(r);
+		super.finish();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		handler.removeCallbacks(r);
+		handler.removeCallbacksAndMessages(r);
+	}
+	
 	private int[] mTabIconsSelected = {
 			R.drawable.newspaper,
 			R.drawable.scan,
@@ -115,7 +131,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 		setContentView(R.layout.activity_main);
 		getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 		ButterKnife.bind(this);
-		
+		//startActivity(new Intent(this,AdsActivity.class));
 		initToolbar();
 		if (!PermissionUtil.checkPermission(MainActivity.this,
 				Manifest.permission.CAMERA,
@@ -126,10 +142,10 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 					.setPositiveButton("حله! بزن بریم", (dialog, which) -> PermissionUtil.requestPermission(MainActivity.this, 0x100, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION)).show();
 			
 		} else {
-			if(!isMockSettingsON(MainActivity.this)){
+			if (!isMockSettingsON(MainActivity.this)) {
 				init();
 				startLocationUpdates();
-			}else{
+			} else {
 				new AlertDialog.Builder(MainActivity.this).setCancelable(false)
 						.setPositiveButton("باشه", (dialog, which) -> {
 							finish();
@@ -194,6 +210,12 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 			}
 		};
 		handler.postDelayed(r, 1000);
+		if (!SystemPrefs.getInstance().isShownOnce(4210)) {
+			new AlertDialog.Builder(this).setMessage("به بازی بگرد و ببر خوش اومدید \n به طور خلاصه این بازی به گونه ای طراحی شده است که شما باید هرروز در محیط مجموعه مارکار حضور داشته باشید و qr کد هایی را که در محیط هستند را اسکن کنید، سپس به سوالات مربوط به هر qr کد جواب دهید و امتیاز کسب کنید. \n در روز آخر به نفر اول تا سوم این مسابقه جایزه نقدی اهدا می گردد. \n\n این برنامه توسط کمیته فرهنگی و ورزشی سی و نهمین دوره مسابقات جام جانباختگان طراحی شده است")
+					.setPositiveButton("چه خوب! بزن بریم", (dialog, which) -> {
+						SystemPrefs.getInstance().setNotShownAgain(true,4210);
+					}).setIcon(R.drawable.icon).create().show();
+		}
 	}
 	
 	
@@ -202,16 +224,11 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 		mSettingsClient
 				.checkLocationSettings(mLocationSettingsRequest)
 				.addOnSuccessListener(this, locationSettingsResponse -> {
-					Log.i("gpsss", "All location settings are satisfied.");
-					
 					showToastMessage("درحال یافتن موقعیت مکانی شما...", Toast.LENGTH_SHORT);
-					//noinspection MissingPermission
 					if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 						mFusedLocationClient.requestLocationUpdates(mLocationRequest,
 								mLocationCallback, Looper.myLooper());
 					}
-					
-					
 					updateLocationUI();
 				})
 				.addOnFailureListener(this, e -> {
@@ -239,6 +256,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 					updateLocationUI();
 				});
 	}
+	
 	public boolean isMockSettingsON(Context context) {
 		// returns true if mock location enabled, false if not enabled.
 		if (Settings.Secure.getString(context.getContentResolver(),
@@ -247,6 +265,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 		else
 			return true;
 	}
+	
 	private void init() {
 		mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 		mSettingsClient = LocationServices.getSettingsClient(this);
@@ -275,20 +294,23 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 		if (mCurrentLocation != null) {
 			
 			ArrayList<LatLng> polygon = new ArrayList<LatLng>();
-			polygon.add(new LatLng(35.736041, 51.533793));
+			/*polygon.add(new LatLng(35.736041, 51.533793));
 			polygon.add(new LatLng(35.735878, 51.535038));
 			polygon.add(new LatLng(35.734664, 51.533577));
-			polygon.add(new LatLng(35.734511, 51.534782));
+			polygon.add(new LatLng(35.734511, 51.534782));*/
+			polygon.add(new LatLng(35.696217, 51.413639));
+			polygon.add(new LatLng(35.696204, 51.414116));
+			polygon.add(new LatLng(35.696028, 51.413639));
+			polygon.add(new LatLng(35.696017, 51.414044));
 			LatLng myLocation = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-			InMarkar = PolyUtil.containsLocation(myLocation, polygon, false);
+			//TODO fix it
+			InMarkar = true;//PolyUtil.containsLocation(myLocation, polygon, false);
 		}
 		
 	}
 	
 	private void initToolbar() {
 		setSupportActionBar(toolbar);
-		
-		
 	}
 	
 	private void initTab() {
@@ -301,7 +323,6 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 			}
 		}
 	}
-	
 	
 	private View getTabView(int position) {
 		View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.tab_item_bottom, null);
@@ -319,10 +340,10 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 						Manifest.permission.READ_EXTERNAL_STORAGE,
 						Manifest.permission.ACCESS_FINE_LOCATION)) {
 					
-					if(!isMockSettingsON(MainActivity.this)){
+					if (!isMockSettingsON(MainActivity.this)) {
 						init();
 						startLocationUpdates();
-					}else{
+					} else {
 						new AlertDialog.Builder(MainActivity.this)
 								.setCancelable(false)
 								.setPositiveButton("باشه", (dialog, which) -> {
@@ -347,14 +368,14 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 	
 	@Override
 	public void onStop() {
-		
+		if (handler != null)
+			handler.removeCallbacksAndMessages(r);
 		super.onStop();
 	}
 	
 	
 	private void switchTab(int position) {
 		mNavController.switchTab(position);
-//        updateToolbarTitle(position);
 	}
 	
 	
@@ -404,11 +425,19 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 				this.doubleBackToExitPressedOnce = true;
 				showToastMessage("برای خروج لطفا دوبار روی دکمه بازگشت لمس کنید", Toast.LENGTH_SHORT);
 				handler.postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
-				if(doubleBackToExitPressedOnce){
-				super.onBackPressed();
-				finish();
-				android.os.Process.killProcess(android.os.Process.myPid());
-				System.exit(1);}
+				if (doubleBackToExitPressedOnce) {
+					handler.removeCallbacksAndMessages(r);
+					handler.removeCallbacks(r);
+					super.onBackPressed();
+					finish();
+					android.os.Process.killProcess(android.os.Process.myPid());
+					System.exit(1);
+					
+					handler = null;
+					r = null;
+				} else {
+					return;
+				}
 			} else {
 				
 				
@@ -509,19 +538,9 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 		}
 		throw new IllegalStateException("Need to send an index that we know");
 	}
-
-
-//    private void updateToolbarTitle(int position){
-//
-//
-//        getSupportActionBar().setName(TABS[position]);
-//
-//    }
 	
 	
 	public void updateToolbarTitle(String title) {
-		
-		
 		getSupportActionBar().setTitle(title);
 		
 	}

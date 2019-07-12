@@ -2,6 +2,7 @@ package com.jarvissoft.begardobebar.adapter;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,21 +65,27 @@ public class ProfileInfoAdapter implements ListAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ProfileInfo profileInfo = arrayList.get(position);
 		if (convertView == null) {
+			
 			LayoutInflater layoutInflater = LayoutInflater.from(context);
 			convertView = layoutInflater.inflate(R.layout.item_profile_info, null);
+//			if (position % 2 == 0)
+//				convertView.setBackgroundColor(Color.parseColor("#dc8014"));
+//			else
+//				convertView.setBackgroundColor(Color.parseColor("#fba30b"));
 			TextView day = convertView.findViewById(R.id.profInfoDay);
 			TextView trueQuestion = convertView.findViewById(R.id.profInfoTrueQuestion);
 			TextView falseQuestion = convertView.findViewById(R.id.profInfoFalseQuestion);
 			TextView score = convertView.findViewById(R.id.profInfoScore);
 			day.setText(getDayName(profileInfo.getDay()));
-			trueQuestion.setText("تعداد جواب درست:"+profileInfo.getTrueQuestion());
-			falseQuestion.setText("تعداد جواب غلط:"+profileInfo.getFalseQuestion());
-			score.setText("امتیاز:"+profileInfo.getScore());
+			trueQuestion.setText("تعداد جواب درست:" + profileInfo.getTrueQuestion());
+			falseQuestion.setText("تعداد جواب غلط:" + profileInfo.getFalseQuestion());
+			score.setText("امتیاز:" + profileInfo.getScore());
 		}
 		return convertView;
 	}
-	String getDayName(String day){
-		switch (day){
+	
+	String getDayName(String day) {
+		switch (day) {
 			case "1":
 				return "روز اول";
 			case "2":
@@ -89,8 +96,8 @@ public class ProfileInfoAdapter implements ListAdapter {
 				return "روز چهارم";
 			case "5":
 				return "روز پنجم";
-				default:
-					return "";
+			default:
+				return "";
 		}
 	}
 	

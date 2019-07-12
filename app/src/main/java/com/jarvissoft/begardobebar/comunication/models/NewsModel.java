@@ -11,8 +11,19 @@ public class NewsModel implements Serializable {
 	String title;
 	@SerializedName("text")
 	String text;
+	@SerializedName("date")
+	String date;
 	@SerializedName("imgUrl")
 	String imgUrl;
+	
+	
+	public String getDate() {
+		return date;
+	}
+	
+	public void setDate(String date) {
+		this.date = date;
+	}
 	
 	public int getId() {
 		return id;

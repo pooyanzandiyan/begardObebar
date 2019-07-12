@@ -13,6 +13,7 @@ import com.jarvissoft.begardobebar.comunication.app.AppService;
 import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
 
 public class AvatarActivity extends MyBaseActivity {
+	
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -20,6 +21,7 @@ public class AvatarActivity extends MyBaseActivity {
 		AvatarAdapter avatarAdapter = new AvatarAdapter(this, BegardObebarApplication.view);
 		GridView gridView = findViewById(R.id.grdAvatar);
 		gridView.setAdapter(avatarAdapter);
+		gridView.setSelected(true);
 		
 	}
 	
@@ -33,13 +35,11 @@ public class AvatarActivity extends MyBaseActivity {
 					AppService.getInstance().setAvatar(SystemPrefs.getInstance().getMobileNumber(), BegardObebarApplication.imgId, result -> {
 						if(result!=null)
 							if(!result.equals("")){
-								finish();
 								setResult(Activity.RESULT_OK);
-								shortToastMessage("با موفقیت ثبت شد");
+								finish();
 							}
 					});
-				}
-				finish();
+				}else {shortToastMessage("یه اواتار رو انتخاب کن بعد ثبت رو بزن");}
 				break;
 			
 			

@@ -19,12 +19,18 @@ public class SystemPrefs extends BasePreferences {
     private static final String PREF_TOKEN= "token";
     private static final String PREF_LOGIN= "login";
     private static final String PREF_IS_WAITING_FOR_SMS= "IsWaitingForSms";
-   
+	private static final String PREF_HELP_RUN_TIME= "firstRunTimeHelp";
     // endregion
-
-
-
-
+	
+	
+	
+	public boolean isShownOnce(int id) {
+		return getBoolean(PREF_HELP_RUN_TIME + id, false);
+	}
+	
+	public void setNotShownAgain(boolean isShownOnce, int id) {
+		setBoolean(PREF_HELP_RUN_TIME + id, isShownOnce);
+	}
 	public void init(Context context){
 		super.init(context, PrefName);
 	}

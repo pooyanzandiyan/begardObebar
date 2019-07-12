@@ -54,6 +54,12 @@
 			android:background="@drawable/white_rounded_button"
 			android:padding="12dp"
 			android:text="تایید رمز عبور" />
+		<TextView
+			android:layout_width="match_parent"
+			android:textColor="@color/yellowish_orange"
+			android:layout_height="wrap_content"
+			android:id="@+id/resendSms"
+			android:text="ارسال دوباره رمز عبور"/>
 
 	</LinearLayout>
 

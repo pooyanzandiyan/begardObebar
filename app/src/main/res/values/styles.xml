@@ -18,6 +18,8 @@
         <item name="android:minHeight">10dip</item>
         <item name="android:maxHeight">20dip</item>
     </style>
+    <style name="CustomProgressBarVertical" parent="android:Widget.ProgressBar.Large">
+    </style>
 
 
     <style name="BottomTabLayout" parent="Widget.Design.TabLayout">

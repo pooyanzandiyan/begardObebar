@@ -47,6 +47,9 @@
 		<activity
 			android:name="com.jarvissoft.begardobebar.activities.NoInternetActivity"
 			android:screenOrientation="portrait" />
+		<activity
+			android:name="com.jarvissoft.begardobebar.activities.AdsActivity"
+			android:screenOrientation="portrait" />
 	</application>
 
 </manifest>

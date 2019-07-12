@@ -11,6 +11,16 @@ public class ScoreModel implements Serializable {
 	String fullName;
 	@SerializedName("allScore")
 	String allScore;
+	@SerializedName("profileImageId")
+	String profileImageId;
+	
+	public String getProfileImageId() {
+		return profileImageId;
+	}
+	
+	public void setProfileImageId(String profileImageId) {
+		this.profileImageId = profileImageId;
+	}
 	
 	public String getClientId() {
 		return clientId;

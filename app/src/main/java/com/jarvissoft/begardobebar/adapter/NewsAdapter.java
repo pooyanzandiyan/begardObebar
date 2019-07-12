@@ -70,15 +70,33 @@ public class NewsAdapter implements ListAdapter {
 			convertView = layoutInflater.inflate(R.layout.item_news, null);
 			TextView tittle = convertView.findViewById(R.id.txtTitle);
 			TextView text = convertView.findViewById(R.id.txtNewsText);
+			TextView txtDate = convertView.findViewById(R.id.txtDate);
 			ImageView imag = convertView.findViewById(R.id.imgNews);
 			tittle.setText(newsData.getTitle());
 			text.setText(newsData.getText());
+			txtDate.setText("اخبار " + getDay(newsData.getDate()) + " جام");
 			if (newsData.getImgUrl().length() > 1)
 				Picasso.get()
 						.load(newsData.getImgUrl())
 						.into(imag);
 		}
 		return convertView;
+	}
+	
+	String getDay(String d) {
+		switch (d) {
+			case "1":
+				return "روز اول";
+			case "2":
+				return "روز دوم";
+			case "3":
+				return "روز سوم";
+			case "4":
+				return "روز چهارم";
+			case "5":
+				return "روز پنجم";
+		}
+		return "";
 	}
 	
 	@Override

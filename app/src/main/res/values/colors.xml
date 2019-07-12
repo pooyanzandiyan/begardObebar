@@ -10,7 +10,7 @@
     <color name="grey">#949494</color>
     <color name="red">#FE3824</color>
     <color name="red_logout">#E95354</color>
-    <color name="white">#FFFFFF</color>
+
     <color name="white_transparent_80">#BFFFFFFF</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
@@ -22,7 +22,7 @@
     <color name="black_25_transparent">#40000000</color>
     <color name="transparent">#00000000</color>
     <color name="grey_trans">#c7c7c7</color>
-    <color name="green">#70c050</color>
+
     <color name="link_blue">#4d94ff</color>
     <color name="darkRed">#cc0000</color>
     <color name="colordarkRed">#cc0000</color>
@@ -32,6 +32,94 @@
     <color name="mcam_color_light">#FAFAFA</color>
     <color name="mcam_color_dark">#424242</color>
 
+    <color name="normalText">#FFFFFFFF</color>
+    <color name="normalTextforGroup">#e6e6e6</color>
+    <color name="normalValueText">#dc8014</color>
+    <color name="normalValueTextGreen">#FF8DC63F</color>
+    <color name="unactivatedText">#FFFF9900</color>
+    <color name="selectedText">#dc8014</color>
+    <color name="inactiveText">#FFCCCCCC</color>
+    <color name="disabledStat">#FF929292</color>
+    <color name="warningText">#FFFF0000</color>
+    <color name="acceleratorValueText">#FF009999</color>
+    <color name="acceleratorTimeText">#FFFF5500</color>
+    <color name="selectedRowBgColor">#FF333333</color>
 
+    <color name="colorHighlight">#66A67B00</color>
+    <color name="textColorPrimary">#E1E3F3</color>
+    <color name="textColorHint">#99FFFFFF</color>
+    <color name="textColorHintEdit">#AAA</color>
+    <color name="pin_normal">#6B767E</color>
+
+
+    <color name="black_two">#212121</color>
+    <color name="black_three">#262626</color>
+    <color name="black_four">#161616</color>
+    <color name="black_five">#242424</color>
+    <color name="black_six">#3a3a3a</color>
+    <color name="black_seven">#151515</color>
+    <color name="black_54">#8a000000</color>
+    <color name="black_32">#51000000</color>
+
+    <color name="dark">#13141a</color>
+    <color name="dark_two">#263238</color>
+    <color name="dark_three">#233844</color>
+    <color name="gunmetal">#515b60</color>
+    <color name="charcoal">#303b3b</color>
+    <color name="silver">#d8d9dd</color>
+
+    <color name="white_75">#c0ffffff</color>
+    <color name="white_55">#8affffff</color>
+    <color name="white_50">#80ffffff</color>
+    <color name="white_40">#61ffffff</color>
+    <color name="white_35">#59ffffff</color>
+    <color name="white_30">#4cffffff</color>
+    <color name="white_20">#33ffffff</color>
+    <color name="white_12">#1fffffff</color>
+    <color name="white_10">#1affffff</color>
+    <color name="white_5">#05ffffff</color>
+    <color name="white_two">#fefefe</color>
+    <color name="white_two_3_5">#59fefefe</color>
+
+
+    <color name="colorSectionSubtitle">@color/charcoal</color>
+    <color name="alternateColorPrimary">@color/gunmetal</color>
+
+    <color name="light_grey">#1cffffff</color>
+    <color name="warm_grey">#737373</color>
+    <color name="greyish">#b7b7b7</color>
+    <color name="charcoal_grey">#27272e</color>
+    <color name="dark_forest_green_88">#e1000100</color>
+    <color name="dark_forest_green__87">#de000100</color>
+
+    <color name="cornflower_blue">#5885d7</color>
+    <color name="dark_grey_blue">#353857</color>
+    <color name="dusky_blue">#5255a3</color>
+    <color name="light_grey_blue_end">#4D4E53</color>
+    <color name="light_grey_blue_start">#5E6177</color>
+    <color name="dusk">#575b87</color>
+
+    <color name="dirty_orange">#dc8014</color>
+    <color name="dirty_orange_5">#0ddc8014</color>
+    <color name="dirty_orange_14">#26dc8014</color>
+    <color name="dirty_orange_disabled">#6c3b01</color>
+    <color name="yellowish_orange">#fba30b</color>
+    <color name="bluish_green">#16a86c</color>
+    <color name="slate_grey">#585b73</color>
+    <color name="green">#17c12b</color>
+    <color name="light_green">#00c349</color>
+    <color name="tree_green">#197d0f</color>
+    <color name="bluish_green_25">#3cba92</color>
+    <color name="bluish_green_50">#0ba360</color>
+    <color name="bluish_green_75">#106b43</color>
+
+
+
+    <!-- car light colors -->
+    <color name="red_light">#FF0000</color>
+    <color name="blue_light">#0000FF</color>
+    <color name="green_light">#008000</color>
+    <color name="yellow_light">#FFFF00</color>
+    <color name="white">#ffffff</color>
 
 </resources>

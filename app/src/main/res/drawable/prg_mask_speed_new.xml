@@ -1,0 +1,9 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <clip android:drawable="@drawable/bg_prg_transition_fuel" />
+    </item>
+    <item android:id="@android:id/progress">
+        <clip android:drawable="@drawable/prg_transition_speed_new" />
+    </item>
+</layer-list>
+

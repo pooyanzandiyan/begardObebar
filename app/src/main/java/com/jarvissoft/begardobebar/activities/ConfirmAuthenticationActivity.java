@@ -3,6 +3,7 @@ package com.jarvissoft.begardobebar.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.comunication.app.AppService;
@@ -44,7 +46,29 @@ public class ConfirmAuthenticationActivity extends MyBaseActivity {
 			
 			}
 		});
+		TextView t=findViewById(R.id.resendSms);
 		findViewById(R.id.btn_save).setOnClickListener(v -> login());
+		t.setOnClickListener(v -> {
+			SmsService.getInstance().SendVerification(SystemPrefs.getInstance().getMobileNumber(), result -> {
+				if (result != null)
+					if(result.getStatus()){
+						new CountDownTimer(60000,1000) {
+							@Override
+							public void onTick(long millisUntilFinished) {
+								t.setText(String.format("زمان باقی مانده تا ارسال مجدد رمز عبور:%s ثانیه",millisUntilFinished/1000));
+								t.setEnabled(false);
+							}
+							
+							@Override
+							public void onFinish() {
+								t.setText("ارسال دوباره رمز عبور");
+								t.setEnabled(true);
+							}}.start();
+					}
+					else
+						textInputLayout.setError("خطا در برقراری ارتباط با سرور");
+			});
+		});
 	}
 	void login(){
 

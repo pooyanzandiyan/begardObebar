@@ -11,13 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.jarvissoft.qrcodescanner.QrCodeActivity;
 import com.jarvissoft.begardobebar.BegardObebarApplication;
 import com.jarvissoft.begardobebar.R;
 import com.jarvissoft.begardobebar.activities.MainActivity;
 import com.jarvissoft.begardobebar.activities.QuestionActivity;
 import com.jarvissoft.begardobebar.comunication.app.AppService;
 import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
+import com.jarvissoft.qrcodescanner.QrCodeActivity;
 
 import butterknife.ButterKnife;
 
@@ -98,6 +98,8 @@ public class ScanFragment extends BaseFragment {
 		super.onCreate(savedInstanceState);
 	}
 	
+	
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
@@ -114,10 +116,17 @@ public class ScanFragment extends BaseFragment {
 			}
 		};
 		handler.postDelayed(r, 1000);
-		
+		if (!SystemPrefs.getInstance().isShownOnce(120))
+			showFirstRuntimeHelp(button, "اسکن کن و جایزه ببر",
+					"هروز همه جا های مارکار رو بگرد و qr کد ها رو اسکن کن و به سوالا جواب بده.هرکس امتیازش بیشتر شد برندس",
+					120);
 		button.setOnClickListener(v -> {
+			
+			
 			Intent i = new Intent(getActivity(), QrCodeActivity.class);
 			startActivityForResult(i, REQUEST_CODE_QR_SCAN);
+			
+			
 		});
 		ButterKnife.bind(this, view);
 		((MainActivity) getActivity()).updateToolbarTitle("اسکن کن");

@@ -1,63 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	>
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:background="@color/light_grey"
+	android:orientation="vertical">
+
 	<TextView
-		android:id="@+id/txtQuestion"
 		android:layout_width="match_parent"
-		android:layout_height="300dp"
-		android:gravity="center"
-		android:textAlignment="center"
-		android:textColor="@color/black"
-		android:text="سوال اول"/>
+		android:layout_height="wrap_content"
+		android:layout_marginTop="20dp"
+		android:text="سوال"
+		android:textAlignment="center" />
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<ImageView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			android:layout_margin="5dp"
+			app:srcCompat="@drawable/ic_question_bg"
+			android:scaleType="fitCenter" />
+
+		<TextView
+			android:id="@+id/txtQuestion"
+			android:layout_width="300dp"
+			android:layout_height="150dp"
+			android:layout_centerInParent="true"
+			android:gravity="center"
+			android:text="سوال اول"
+			android:textAlignment="center"
+			android:textColor="@color/primary_text" />
+	</RelativeLayout>
+
+<TextView
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:textAlignment="center"
+	android:text="زمان باقی مانده"/>
 	<ProgressBar
 		android:id="@+id/prgTime"
+		style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
 		android:layout_width="match_parent"
-		android:layout_height="50dp"
-		style="@style/CustomProgressBarHorizontal"
-		android:min="0"
-		android:max="15"/>
-<LinearLayout
-	android:layout_width="match_parent"
-	android:orientation="vertical"
-	android:layout_height="match_parent">
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_weight="0.5"
+		android:layout_height="30dp"
+		android:indeterminate="false"
+		android:max="300"
+		android:progress="0"
 
-		android:layout_height="match_parent">
-		<Button
-			android:layout_width="match_parent"
-			android:layout_weight="0.5"
-			android:id="@+id/answer1"
-			android:onClick="CheckAnswer"
-			android:layout_height="match_parent" />
-		<Button
-			android:layout_width="match_parent"
-			android:layout_weight="0.5"
-			android:id="@+id/answer2"
-			android:onClick="CheckAnswer"
-			android:layout_height="match_parent" />
-	</LinearLayout>
-	<LinearLayout
-		android:orientation="horizontal"
+		android:progressDrawable="@drawable/prg_mask_speed_new"/>
+	<TextView
 		android:layout_width="match_parent"
-		android:layout_weight="0.5"
-		android:layout_height="match_parent">
-		<Button
+		android:layout_height="wrap_content"
+		android:textAlignment="center"
+		android:layout_marginTop="5dp"
+		android:text="گزینه ها"/>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+
+		android:orientation="vertical">
+
+		<LinearLayout
 			android:layout_width="match_parent"
+			android:layout_height="match_parent"
 			android:layout_weight="0.5"
-			android:id="@+id/answer3"
-			android:onClick="CheckAnswer"
-			android:layout_height="match_parent" />
-		<Button
+
+			android:orientation="horizontal">
+
+			<Button
+				android:id="@+id/answer1"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_margin="1dp"
+				android:layout_weight="0.5"
+				android:textColor="@color/white_two"
+				android:background="@drawable/bg_btn_selector"
+				android:onClick="CheckAnswer" />
+
+			<Button
+				android:id="@+id/answer2"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_margin="1dp"
+				android:layout_weight="0.5"
+				android:textColor="@color/white_two"
+				android:background="@drawable/bg_btn_selector"
+				android:onClick="CheckAnswer" />
+		</LinearLayout>
+
+		<LinearLayout
 			android:layout_width="match_parent"
+			android:layout_height="match_parent"
 			android:layout_weight="0.5"
-			android:id="@+id/answer4"
-			android:onClick="CheckAnswer"
-			android:layout_height="match_parent" />
+			android:orientation="horizontal">
+
+			<Button
+				android:id="@+id/answer3"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_margin="1dp"
+				android:layout_weight="0.5"
+				android:textColor="@color/white_two"
+				android:background="@drawable/bg_btn_selector"
+				android:onClick="CheckAnswer" />
+
+			<Button
+				android:id="@+id/answer4"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_margin="1dp"
+				android:textColor="@color/white_two"
+				android:layout_weight="0.5"
+				android:background="@drawable/bg_btn_selector"
+				android:onClick="CheckAnswer" />
+		</LinearLayout>
 	</LinearLayout>
-</LinearLayout>
 </LinearLayout>

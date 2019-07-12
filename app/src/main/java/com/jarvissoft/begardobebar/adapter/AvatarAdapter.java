@@ -2,11 +2,13 @@ package com.jarvissoft.begardobebar.adapter;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.RadioButton;
 
 import com.jarvissoft.begardobebar.BegardObebarApplication;
 import com.jarvissoft.begardobebar.R;
@@ -68,26 +70,36 @@ public class AvatarAdapter implements ListAdapter {
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		View ConvertView=convertView;
 		final Integer imgId = arrayList.get(position);
 		if (convertView == null) {
 			LayoutInflater layoutInflater = LayoutInflater.from(context);
-			convertView = layoutInflater.inflate(R.layout.avatar_item, null);
-			convertView.setOnClickListener(v -> {
+			ConvertView = layoutInflater.inflate(R.layout.avatar_item, null);
+			RadioButton radioButton= ConvertView.findViewById(R.id.rdoItem);
+			BegardObebarApplication.radioButtons.add(radioButton);
+			ConvertView.setOnClickListener(v -> {
 				BegardObebarApplication.imgId = String.valueOf(imgId);
 				if (view!=null) {
 					ImageView avatar = view.findViewById(R.id.profileImg);
 					avatar.setImageBitmap(AvatarManager.getInstance().getAvatar(context, imgId));
+					resetRadioButton();
+					radioButton.setChecked(true);
 				}
 				
 			});
-			ImageView avatarImg = convertView.findViewById(R.id.imgAvatar);
+			ImageView avatarImg = ConvertView.findViewById(R.id.imgAvatar);
 			avatarImg.setImageBitmap(AvatarManager.getInstance().getAvatar(context, imgId));
 			
 		}
-		return convertView;
+		return ConvertView;
 	}
 	
-	
+	void resetRadioButton(){
+		for (RadioButton item:BegardObebarApplication.radioButtons
+		     ) {
+			item.setChecked(false);
+		}
+	}
 	@Override
 	public int getItemViewType(int position) {
 		return position;

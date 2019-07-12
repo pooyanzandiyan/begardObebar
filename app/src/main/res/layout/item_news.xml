@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:layoutDirection="ltr">
 <LinearLayout
@@ -19,6 +21,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:textStyle="bold"
+			android:textColor="@color/dirty_orange"
 			android:paddingEnd="10dp"
 			android:textSize="15sp"
 
@@ -38,6 +41,9 @@
 		android:id="@+id/imgNews"
 		android:layout_height="100dp"
 		android:layout_weight="0.3"
+		android:layout_marginRight="5dp"
+		app:civ_border_width="2dp"
+		app:civ_border_color="@color/dirty_orange"
 		android:src="@drawable/pictogram" />
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:fillViewport="true">
 
 	<LinearLayout
@@ -24,6 +25,8 @@
 					android:layout_gravity="center"
 					android:layout_marginTop="21dp"
 					android:id="@+id/profileImg"
+					app:civ_border_width="4dp"
+					app:civ_border_color="@color/yellowish_orange"
 					android:src="@drawable/pictogram" />
 
 				<TextView
@@ -79,7 +82,7 @@
 							android:textStyle="bold"
 							android:textSize="20sp"
 							android:paddingTop="10dp"
-							android:textColor="@color/startblue"
+							android:textColor="@color/yellowish_orange"
 							/>
 					</LinearLayout>
 					<LinearLayout
@@ -102,7 +105,7 @@
 							android:textStyle="bold"
 							android:textSize="20sp"
 							android:paddingTop="10dp"
-							android:textColor="@color/startblue"
+							android:textColor="@color/yellowish_orange"
 							/>
 					</LinearLayout>
 					<LinearLayout
@@ -125,7 +128,7 @@
 							android:textStyle="bold"
 							android:textSize="20sp"
 							android:paddingTop="10dp"
-							android:textColor="@color/startblue"
+							android:textColor="@color/yellowish_orange"
 							/>
 					</LinearLayout>
 				</LinearLayout>
