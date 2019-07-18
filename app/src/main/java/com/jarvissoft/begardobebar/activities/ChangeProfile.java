@@ -30,10 +30,10 @@ public class ChangeProfile extends MyBaseActivity {
 		setContentView(R.layout.activity_change_profile);
 		final EditText editText = findViewById(R.id.input_name);
 		txtInputLayout = findViewById(R.id.mobileInputLayout);
-		if (!SystemPrefs.getInstance().isShownOnce(122124550))
+		if (!SystemPrefs.getInstance().isShownOnce(124550))
 			showFirstRuntimeHelp(findViewById(R.id.setProfileImage), "آواتار انتخاب کن",
 					"برای اینکه دوستات تو رو بشناسن یه آواتار برای خودت انتخاب کن.کافیه روی این تصویر کلیک کنی",
-					122124550);
+					124550);
 		findViewById(R.id.setProfileImage).setOnClickListener(v -> startActivityForResult(new Intent(ChangeProfile.this, AvatarActivity.class), ChangeImageRequestCode));
 		findViewById(R.id.btn_save).setOnClickListener(v -> {
 			hideKeyboard(ChangeProfile.this);

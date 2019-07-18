@@ -3,34 +3,18 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical">
-<RelativeLayout
-	android:layout_width="100dp"
-	android:layout_height="100dp"
-	android:layout_alignParentBottom="true">
-	<ProgressBar
-		android:id="@+id/prgCurrentTime"
-		android:layout_width="70dp"
-		android:layout_height="70dp"
-		android:layout_centerInParent="true"
-		style="@style/CustomProgressBarHorizontal"
-		android:indeterminate="false"
-		android:progressDrawable="@drawable/progressbg"
-		/>
-	<TextView
-		android:id="@+id/txtPercent"
+<ImageView
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:id="@+id/imgAds"
+	/>
+
+	<Button
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:textSize="7sp"
-		android:layout_centerInParent="true"
-		/>
-</RelativeLayout>
-
-
-	<VideoView
-		android:id="@+id/adsVideo"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_centerHorizontal="true"
-		android:layout_centerVertical="true" />
-
+		android:background="@color/black_ads"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:id="@+id/btnAds"
+		android:text=" بستن تبلیغ" />
 </RelativeLayout>

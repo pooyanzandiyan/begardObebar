@@ -237,8 +237,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 						case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
 							
 							try {
-								// Show the dialog by calling startResolutionForResult(), and check the
-								// result in onActivityResult().
+								
 								ResolvableApiException rae = (ResolvableApiException) e;
 								rae.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
 							} catch (IntentSender.SendIntentException sie) {
@@ -246,11 +245,9 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 							}
 							break;
 						case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-							String errorMessage = "Location settings are inadequate, and cannot be " +
-									"fixed here. Fix in Settings.";
-							Log.e("gpsss", errorMessage);
 							
-							Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+							
+							Toast.makeText(MainActivity.this, "خطا در ارتباط با جی پی اس", Toast.LENGTH_LONG).show();
 					}
 					
 					updateLocationUI();
@@ -298,17 +295,53 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 			polygon.add(new LatLng(35.735878, 51.535038));
 			polygon.add(new LatLng(35.734664, 51.533577));
 			polygon.add(new LatLng(35.734511, 51.534782));*/
-			polygon.add(new LatLng(35.696217, 51.413639));
-			polygon.add(new LatLng(35.696204, 51.414116));
-			polygon.add(new LatLng(35.696028, 51.413639));
-			polygon.add(new LatLng(35.696017, 51.414044));
+			polygon.add(new LatLng(35.736231, 51.532868));
+			polygon.add(new LatLng(35.736039, 51.535615));
+			polygon.add(new LatLng(35.734385, 51.535389));
+			polygon.add(new LatLng(35.734724, 51.532696));
+			
+			
 			LatLng myLocation = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
 			//TODO fix it
-			InMarkar = true;//PolyUtil.containsLocation(myLocation, polygon, false);
+			
+			//InMarkar=isPointInPolygon(myLocation,polygon);
+			InMarkar = PolyUtil.containsLocation(myLocation, polygon, true);
 		}
+		//InMarkar = true;
 		
 	}
+	private boolean isPointInPolygon(LatLng tap, ArrayList<LatLng> vertices) {
+		int intersectCount = 0;
+		for (int j = 0; j < vertices.size() - 1; j++) {
+			if (rayCastIntersect(tap, vertices.get(j), vertices.get(j + 1))) {
+				intersectCount++;
+			}
+		}
+		
+		return ((intersectCount % 2) == 1); // odd = inside, even = outside;
+	}
 	
+	private boolean rayCastIntersect(LatLng tap, LatLng vertA, LatLng vertB) {
+		
+		double aY = vertA.latitude;
+		double bY = vertB.latitude;
+		double aX = vertA.longitude;
+		double bX = vertB.longitude;
+		double pY = tap.latitude;
+		double pX = tap.longitude;
+		
+		if ((aY > pY && bY > pY) || (aY < pY && bY < pY)
+				|| (aX < pX && bX < pX)) {
+			return false; // a and b can't both be above or below pt.y, and a or
+			// b must be east of pt.x
+		}
+		
+		double m = (aY - bY) / (aX - bX); // Rise over run
+		double bee = (-aX) * m + aY; // y = mx + b
+		double x = (pY - bee) / m; // algebra is neat!
+		
+		return x > pX;
+	}
 	private void initToolbar() {
 		setSupportActionBar(toolbar);
 	}

@@ -1,6 +1,7 @@
 package com.jarvissoft.begardobebar.comunication.app;
 
 import com.jarvissoft.begardobebar.BegardObebarApplication;
+import com.jarvissoft.begardobebar.comunication.models.AdsModel;
 import com.jarvissoft.begardobebar.comunication.models.NewsModel;
 import com.jarvissoft.begardobebar.comunication.models.ProfileInfo;
 import com.jarvissoft.begardobebar.comunication.models.ProfileModel;
@@ -168,6 +169,20 @@ public class AppService {
 				callback.callback(null);
 			}
 		});
+	}
+	public  void getAds(final ServiceCallback<AdsModel> callback){
+		service.getAds().enqueue(new Callback<AdsModel>() {
+			@Override
+			public void onResponse(Call<AdsModel> call, Response<AdsModel> response) {
+				callback.callback(response.body());
+			}
+			
+			@Override
+			public void onFailure(Call<AdsModel> call, Throwable t) {
+				callback.callback(null);
+			}
+		});
+		
 	}
 }
 

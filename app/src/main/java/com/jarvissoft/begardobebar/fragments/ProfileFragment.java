@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -51,10 +52,7 @@ public class ProfileFragment extends BaseFragment {
 		checkToken();
 		
 		getData();
-		if (!SystemPrefs.getInstance().isShownOnce(145))
-			showFirstRuntimeHelp(profileImg, "عکس پروفایلتو عوض کن",
-					"روی این تصویر بزن و یه اواتاری انتخاب کن تا در قسمت برترین ها اواتارتو دوستات ببینن",
-					145);
+		
 		profileImg.setOnClickListener(v -> {
 			BegardObebarApplication.view = view;
 			startActivityForResult(new Intent(getActivity(), AvatarActivity.class), 0);
@@ -62,6 +60,15 @@ public class ProfileFragment extends BaseFragment {
 			
 		});
 		return view;
+	}
+	
+	@Override
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		if (!SystemPrefs.getInstance().isShownOnce(145))
+			showFirstRuntimeHelp(profileImg, "عکس پروفایلتو عوض کن",
+					"روی این تصویر بزن و یه اواتاری انتخاب کن تا در قسمت برترین ها اواتارتو دوستات ببینن",
+					145);
 	}
 	
 	@Override

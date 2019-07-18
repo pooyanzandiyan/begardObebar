@@ -1,5 +1,6 @@
 package com.jarvissoft.begardobebar.comunication.app;
 
+import com.jarvissoft.begardobebar.comunication.models.AdsModel;
 import com.jarvissoft.begardobebar.comunication.models.NewsModel;
 import com.jarvissoft.begardobebar.comunication.models.ProfileInfo;
 import com.jarvissoft.begardobebar.comunication.models.ProfileModel;
@@ -32,5 +33,7 @@ public interface AppApiService {
 	Call<QuestionModel> getQuestion(@Query("id") String id,@Query("mobile") String mobile);
 	@POST("setAnswer.php")
 	Call<String> setAnswer(@Query("id") String id,@Query("mobile") String mobile,@Query("answer") String answer);
+	@POST("setAnswer.php")
+	Call<AdsModel> getAds();
 	
 }

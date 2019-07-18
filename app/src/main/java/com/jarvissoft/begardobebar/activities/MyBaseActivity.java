@@ -66,7 +66,6 @@ public class MyBaseActivity extends AppCompatActivity {
 		View finalTmpIconId = tmpIconId;
 		materialTapTargetPrompt = new MaterialTapTargetPrompt.Builder(this)
 				.setTarget(tmpIconId)
-				.setAutoFinish(true)
 				.setPrimaryTextTypeface(getFont())
 				.setSecondaryTextTypeface(getFont())
 				.setPrimaryTextGravity(1)

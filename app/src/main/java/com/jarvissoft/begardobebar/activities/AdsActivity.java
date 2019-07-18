@@ -1,84 +1,81 @@
 package com.jarvissoft.begardobebar.activities;
 
-import android.annotation.SuppressLint;
-import android.media.MediaPlayer;
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.VideoView;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.jarvissoft.begardobebar.R;
+import com.jarvissoft.begardobebar.comunication.app.AppService;
+import com.jarvissoft.qrcodescanner.QrCodeActivity;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
-import java.util.concurrent.TimeUnit;
+import static com.jarvissoft.begardobebar.fragments.ScanFragment.REQUEST_CODE_QR_SCAN;
 
 public class AdsActivity extends BaseActivity {
-	private double currentTime = 0;
-	private double duration = 0;
-	private ProgressBar prgCurrentTime;
-	private Handler mHandler = new Handler();
-	MediaPlayer mediaPlayer;
-	TextView percent;
+	CountDownTimer countDownTimer;
+	private final String GOT_RESULT = "com.jarvissoft.qrcodescanner.got_qr_scan_relult";
+	private final String ERROR_DECODING_IMAGE = "com.jarvissoft.qrcodescanner.error_decoding_image";
+	private final String LOGTAG = "QRScannerQRCodeActivity";
+	
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ads);
-		VideoView vidView = findViewById(R.id.adsVideo);
-		prgCurrentTime=findViewById(R.id.prgCurrentTime);
-		percent =findViewById(R.id.txtPercent);
-		String vidAddress = "https://pzandian.ir/ads_video/test.mp4";
-		Uri vidUri = Uri.parse(vidAddress);
-		vidView.setVideoURI(vidUri);
-		vidView.start();
+		Button btn = findViewById(R.id.btnAds);
+		ImageView img = findViewById(R.id.imgAds);
 		showLoading();
+		AppService.getInstance().getAds(result -> {
+			if (result != null) {
+				Picasso.get().load(result.getImgUrl()).into(img, new Callback() {
+					@Override
+					public void onSuccess() {
+						cancelLoading();
+						countDownTimer = new CountDownTimer(2000, 1000) {
+							@Override
+							public void onTick(long millisUntilFinished) {
+								btn.setText(String.format("امکان بستن تبلیغ در %s ثانیه دیگر", millisUntilFinished / 1000));
+							}
+							
+							@Override
+							public void onFinish() {
+								btn.setText("بستن تبلیغ");
+								btn.setOnClickListener(v -> {
+									Intent i = new Intent(AdsActivity.this, QrCodeActivity.class);
+									startActivityForResult(i, REQUEST_CODE_QR_SCAN);
+								});
+							}
+						}.start();
+						img.setOnClickListener(v -> {
+							if (result.getSiteUrl() != null)
+								if (!result.getSiteUrl().equals(""))
+									startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(result.getSiteUrl())));
+						});
+					}
+					
+					@Override
+					public void onError(Exception e) {
+						shortToastMessage("خطا در برقراری ارتباط با سرور");
+						cancelLoading();
+					}
+				});
+				
+				
+			}
+			
+		});
 		
-		vidView.setOnPreparedListener(mp -> {
-			mediaPlayer=mp;
-			cancelLoading();
-			prgCurrentTime.setMax(mediaPlayer.getDuration() /1000);
-			updateProgressBar();
-		});
-		vidView.setOnCompletionListener(mp -> {
-			mp.stop();
-			mHandler.removeCallbacks(UpdateProgress);
-			finish();
-		});
 	}
 	
 	@Override
-	public void onBackPressed() {
-		mHandler.removeCallbacks(UpdateProgress);
-		super.onBackPressed();
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		setResult(Activity.RESULT_OK, data);
+		finish();
+		
 	}
-	
-	public void updateProgressBar() {
-		if (mHandler != null) {
-			mHandler.postDelayed(UpdateProgress,100);
-		}
-	}
-	private int getPercent(int duration,int second){
-		return (second*100)/duration;
-	}
-	private Runnable UpdateProgress = new Runnable() {
-		@SuppressLint("SetTextI18n")
-		public void run() {
-			currentTime = mediaPlayer.getCurrentPosition();
-			duration = mediaPlayer.getDuration();
-			
-			long CurrentSec=TimeUnit.MILLISECONDS.toSeconds((long) currentTime) -
-					TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.
-							toMinutes((long) currentTime));
-			long Duration=TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) duration));
-			prgCurrentTime.setProgress((int) CurrentSec);
-			percent.setText(getPercent((int)Duration,(int)CurrentSec)+" %" );
-			if(CurrentSec>Duration-15){
-				findViewById(R.id.adsVideo).setOnClickListener(v -> {
-				
-				});
-			}
-			mHandler.postDelayed(this, 500);
-		}
-	};
 }
