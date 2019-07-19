@@ -33,7 +33,7 @@ public interface AppApiService {
 	Call<QuestionModel> getQuestion(@Query("id") String id,@Query("mobile") String mobile);
 	@POST("setAnswer.php")
 	Call<String> setAnswer(@Query("id") String id,@Query("mobile") String mobile,@Query("answer") String answer);
-	@POST("setAnswer.php")
+	@POST("getAds.php")
 	Call<AdsModel> getAds();
 	
 }

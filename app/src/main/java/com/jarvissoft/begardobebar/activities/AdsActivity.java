@@ -35,6 +35,8 @@ public class AdsActivity extends BaseActivity {
 				Picasso.get().load(result.getImgUrl()).into(img, new Callback() {
 					@Override
 					public void onSuccess() {
+						
+						img.setScaleType(ImageView.ScaleType.FIT_CENTER);
 						cancelLoading();
 						countDownTimer = new CountDownTimer(2000, 1000) {
 							@Override
@@ -65,6 +67,10 @@ public class AdsActivity extends BaseActivity {
 					}
 				});
 				
+				
+			}else{
+				shortToastMessage("خطا در برقراری ارتباط با سرور");
+				cancelLoading();
 				
 			}
 			
