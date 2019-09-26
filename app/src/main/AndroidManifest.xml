@@ -50,6 +50,7 @@
 		<activity
 			android:name="com.jarvissoft.begardobebar.activities.AdsActivity"
 			android:screenOrientation="portrait" />
+		<meta-data android:name="co.ronash.pushe.token" android:value="PUSHE_716158486107"/>
 	</application>
 
 </manifest>

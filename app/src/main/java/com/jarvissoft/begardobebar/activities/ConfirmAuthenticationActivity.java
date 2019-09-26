@@ -89,7 +89,7 @@ public class ConfirmAuthenticationActivity extends MyBaseActivity {
 								
 								AppService.getInstance().getProfile(SystemPrefs.getInstance().getMobileNumber(), result1 -> {
 									if (result1 != null) {
-										if(result1.getFullName().length()<1){
+										if(result1.getFullName().trim().length()<1){
 											startActivity(new Intent(ConfirmAuthenticationActivity.this, ChangeProfile.class));
 										}else{
 											startActivity(new Intent(ConfirmAuthenticationActivity.this, MainActivity.class));

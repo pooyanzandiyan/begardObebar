@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.jarvissoft.begardobebar.BegardObebarApplication;
 import com.jarvissoft.begardobebar.R;
+import com.jarvissoft.begardobebar.comunication.app.AppService;
 import com.jarvissoft.begardobebar.fragments.BaseFragment;
 import com.jarvissoft.begardobebar.fragments.HomeFragment;
 import com.jarvissoft.begardobebar.fragments.RankFragment;
@@ -131,8 +132,10 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 		setContentView(R.layout.activity_main);
 		getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 		ButterKnife.bind(this);
+		
 		//startActivity(new Intent(this,AdsActivity.class));
 		initToolbar();
+		
 		if (!PermissionUtil.checkPermission(MainActivity.this,
 				Manifest.permission.CAMERA,
 				Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -201,8 +204,9 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 			public void run() {
 				if (!NetworkUtils.isConnected(MainActivity.this)) {
 					if (BegardObebarApplication.isFirst) {
-						startActivity(new Intent(MainActivity.this, NoInternetActivity.class));
-						BegardObebarApplication.isFirst = false;
+//						startActivity(new Intent(MainActivity.this, NoInternetActivity.class));
+//						BegardObebarApplication.isFirst = false;
+						shortToastMessage("شما به اینترنت متصل نیستید");
 					}
 				}
 				handler.postDelayed(this, 2000);
@@ -216,6 +220,15 @@ public class MainActivity extends BaseActivity implements BaseFragment.FragmentN
 						SystemPrefs.getInstance().setNotShownAgain(true,4210);
 					}).setIcon(R.drawable.icon).create().show();
 		}
+		AppService.getInstance().getProfile(SystemPrefs.getInstance().getMobileNumber(), result1 -> {
+			if (result1 != null) {
+				
+				if((result1.getFullName().trim()).length()<1){
+					startActivity(new Intent(this, ChangeProfile.class));
+				}
+				//finish();
+			}
+		});
 	}
 	
 	

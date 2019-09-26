@@ -60,9 +60,9 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
     implementation project(':qrcodescanner')
-    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
-    implementation "com.android.support:design:$supportLibraryVersion"
-    implementation "com.android.support:support-v4:$supportLibraryVersion"
+    implementation "com.android.support:appcompat-v7:27.1.1"
+    implementation "com.android.support:design:27.1.1"
+    implementation "com.android.support:support-v4:27.1.1"
     implementation 'uk.co.chrisjenx:calligraphy:2.1.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
@@ -73,4 +73,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.16'
     implementation 'uk.co.samuelwall:material-tap-target-prompt:2.13.0'
+    implementation 'co.ronash.android:pushe-base:1.6.3'
 }

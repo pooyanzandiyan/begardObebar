@@ -30,6 +30,10 @@ public class SplashScreenActivity extends MyBaseActivity {
 				}
 			}
 		}.start();
+		
+		
+		
+		
 	}
 	
 	// exiting the app if the back key is pressed

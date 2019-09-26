@@ -88,8 +88,9 @@ public class QuestionActivity extends MyBaseActivity {
 				shortToastMessage("خطا در برقراری ارتباط با سرور");
 			} else {
 				shortToastMessage("جواب شما با موفقیت ثبت شد!");
-				new Handler().postDelayed(this::finish, 2000);
+				//new Handler().postDelayed(this::finish, 2000);
 			}
+			new Handler().postDelayed(this::finish, 2000);
 		});
 		
 	}

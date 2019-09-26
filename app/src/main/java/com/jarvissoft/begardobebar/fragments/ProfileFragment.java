@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.jarvissoft.begardobebar.BegardObebarApplication;
 import com.jarvissoft.begardobebar.R;
+import com.jarvissoft.begardobebar.activities.ChangeProfile;
 import com.jarvissoft.begardobebar.activities.MainActivity;
 import com.jarvissoft.begardobebar.activities.AvatarActivity;
 import com.jarvissoft.begardobebar.adapter.ProfileInfoAdapter;
@@ -59,6 +60,7 @@ public class ProfileFragment extends BaseFragment {
 			
 			
 		});
+		view.findViewById(R.id.profFullName).setOnClickListener(v -> startActivity(new Intent(getActivity(), ChangeProfile.class)));
 		return view;
 	}
 	

@@ -10,6 +10,7 @@ import com.jarvissoft.begardobebar.utils.pref.SystemPrefs;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.ronash.pushe.Pushe;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class BegardObebarApplication extends Application {
@@ -34,6 +35,7 @@ public static boolean InMarkar=false;
 				.build()
 		);
 		SystemPrefs.getInstance().init(this);
+		Pushe.initialize(this,false);
 	}
 	
 }

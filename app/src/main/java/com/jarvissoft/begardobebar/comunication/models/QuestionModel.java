@@ -15,8 +15,8 @@ public class QuestionModel implements Serializable {
 	String answer3;
 	@SerializedName("answer4")
 	String answer4;
-	@SerializedName("id")
-	String id;
+	@SerializedName("NO")
+	String no;
 	@SerializedName("status")
 	boolean status;
 	@SerializedName("type")
@@ -39,11 +39,11 @@ public class QuestionModel implements Serializable {
 	}
 	
 	public String getId() {
-		return id;
+		return no;
 	}
 	
 	public void setId(String id) {
-		this.id = id;
+		this.no = id;
 	}
 	
 	public String getQuestion() {
